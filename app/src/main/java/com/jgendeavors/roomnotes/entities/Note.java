@@ -12,15 +12,15 @@ public class Note {
     private int mId;
     private String mTitle;
     private String mContent;
-    private String mDateCreated;
-    private String mDateModified;
+    private long mDateCreated; // millis since epoch
+    private long mDateModified; // millis since epoch
     private String mCategory;
 
     // Constructor
     //
     // Room needs to be able to construct Note objects from database data, so we provide a
     // constructor and accessor methods to enable that.
-    public Note(String title, String content, String dateCreated, String dateModified, String category) {
+    public Note(String title, String content, long dateCreated, long dateModified, String category) {
         mTitle = title;
         mContent = content;
         mDateCreated = dateCreated;
@@ -33,8 +33,8 @@ public class Note {
     public int getId() { return mId; }
     public String getTitle() { return mTitle; }
     public String getContent() { return mContent; }
-    public String getDateCreated() { return mDateCreated; }
-    public String getDateModified() { return mDateModified; }
+    public long getDateCreated() { return mDateCreated; }
+    public long getDateModified() { return mDateModified; }
     public String getCategory() { return mCategory; }
 
     // Setters
