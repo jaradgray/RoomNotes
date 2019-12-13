@@ -25,4 +25,24 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // added for this project
+
+    // Lifecycle components - ViewModel and LiveData
+    def lifecycle_version = "2.1.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    // Room
+    def room_version = "2.2.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // Material library (for CoordinatorLayout and FloatingActionButton)
+    def material_version = "1.0.0"
+    implementation "com.google.android.material:material:$material_version"
+
+    // CardView
+    def cardview_version = "1.0.0"
+    implementation "androidx.cardview:cardview:$cardview_version"
 }
