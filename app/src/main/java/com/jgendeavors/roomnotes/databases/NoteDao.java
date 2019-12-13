@@ -4,6 +4,7 @@ import com.jgendeavors.roomnotes.entities.Note;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -28,31 +29,31 @@ public interface NoteDao {
 
     // These methods return all Notes in the database
     @Query("SELECT * FROM note_table ORDER BY date_modified DESC")
-    List<Note> getNotesByDateModifiedDescending();
+    LiveData<List<Note>> getNotesByDateModifiedDescending();
     @Query("SELECT * FROM note_table ORDER BY date_modified ASC")
-    List<Note> getNotesByDateModifiedAscending();
+    LiveData<List<Note>> getNotesByDateModifiedAscending();
     @Query("SELECT * FROM note_table ORDER BY date_created DESC")
-    List<Note> getNotesByDateCreatedDescending();
+    LiveData<List<Note>> getNotesByDateCreatedDescending();
     @Query("SELECT * FROM note_table ORDER BY date_created ASC")
-    List<Note> getNotesByDateCreatedAscending();
+    LiveData<List<Note>> getNotesByDateCreatedAscending();
 
     // These methods return Notes with matching category column
     @Query("SELECT * FROM note_table WHERE category = :category ORDER BY date_modified DESC")
-    List<Note> getNotesByDateModifiedDescending(String category);
+    LiveData<List<Note>> getNotesByDateModifiedDescending(String category);
     @Query("SELECT * FROM note_table WHERE category = :category ORDER BY date_modified ASC")
-    List<Note> getNotesByDateModifiedAscending(String category);
+    LiveData<List<Note>> getNotesByDateModifiedAscending(String category);
     @Query("SELECT * FROM note_table WHERE category = :category ORDER BY date_created DESC")
-    List<Note> getNotesByDateCreatedDescending(String category);
+    LiveData<List<Note>> getNotesByDateCreatedDescending(String category);
     @Query("SELECT * FROM note_table WHERE category = :category ORDER BY date_created ASC")
-    List<Note> getNotesByDateCreatedAscending(String category);
+    LiveData<List<Note>> getNotesByDateCreatedAscending(String category);
 
     // These methods return Notes with matching is_favorited column
     @Query("SELECT * FROM note_table WHERE is_favorited = :isFavorited ORDER BY date_modified DESC")
-    List<Note> getNotesByDateModifiedDescending(boolean isFavorited);
+    LiveData<List<Note>> getNotesByDateModifiedDescending(boolean isFavorited);
     @Query("SELECT * FROM note_table is_favorited = :isFavorited ORDER BY date_modified ASC")
-    List<Note> getNotesByDateModifiedAscending(boolean isFavorited);
+    LiveData<List<Note>> getNotesByDateModifiedAscending(boolean isFavorited);
     @Query("SELECT * FROM note_table is_favorited = :isFavorited ORDER BY date_created DESC")
-    List<Note> getNotesByDateCreatedDescending(boolean isFavorited);
+    LiveData<List<Note>> getNotesByDateCreatedDescending(boolean isFavorited);
     @Query("SELECT * FROM note_table is_favorited = :isFavorited ORDER BY date_created ASC")
-    List<Note> getNotesByDateCreatedAscending(boolean isFavorited);
+    LiveData<List<Note>> getNotesByDateCreatedAscending(boolean isFavorited);
 }
