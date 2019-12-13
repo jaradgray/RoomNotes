@@ -1,5 +1,6 @@
 package com.jgendeavors.roomnotes.entities;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,12 +10,19 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "note_table")
 public class Note {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private int mId;
+    @ColumnInfo(name = "title")
     private String mTitle;
+    @ColumnInfo(name = "content")
     private String mContent;
+    @ColumnInfo(name = "date_created")
     private long mDateCreated; // millis since epoch
+    @ColumnInfo(name = "date_modified")
     private long mDateModified; // millis since epoch
+    @ColumnInfo(name = "category")
     private String mCategory;
+    @ColumnInfo(name = "is_favorited")
     private boolean mIsFavorited;
 
     // Constructor
