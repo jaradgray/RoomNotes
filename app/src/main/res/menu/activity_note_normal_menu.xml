@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_edit_note"
+        android:title="@string/menu_item_edit_note_title"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_favorite_note"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/menu_item_favorite_note_title"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_delete_note"
+        android:title="@string/menu_item_delete_note_title"
+        app:showAsAction="never" />
+
+</menu>
