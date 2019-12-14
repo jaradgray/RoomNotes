@@ -27,6 +27,10 @@ public interface NoteDao {
     @Delete
     void delete(Note note);
 
+    // TODO remove this when I figure out how to implement the ordering
+    @Query("SELECT * FROM note_table ORDER BY date_modified DESC")
+    LiveData<List<Note>> getAllNotes();
+
     // These methods return all Notes in the database
     @Query("SELECT * FROM note_table ORDER BY date_modified DESC")
     LiveData<List<Note>> getNotesByDateModifiedDescending();

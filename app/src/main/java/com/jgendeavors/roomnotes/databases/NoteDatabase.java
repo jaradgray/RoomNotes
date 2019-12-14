@@ -15,7 +15,7 @@ import androidx.room.RoomDatabase;
 public abstract class NoteDatabase extends RoomDatabase {
     private static NoteDatabase instance;
 
-    public abstract NoteDao noteDao(); // Room implements this method under the hood
+    public abstract NoteDao noteDao(); // Room implements this method under the hood with the databaseBuilder() method
 
     public static synchronized NoteDatabase getInstance(Context context) {
         if (instance == null) {
