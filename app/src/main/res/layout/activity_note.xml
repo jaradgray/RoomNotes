@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
+    android:orientation="vertical"
     tools:context=".NoteActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/activity_note_et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/activity_note_et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Note"
+        android:inputType="textMultiLine"/>
+
+    <TextView
+        android:id="@+id/activity_note_tv_charactercount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tv_charactercount"
+        android:textAlignment="viewEnd" />
+
+    <TextView
+        android:id="@+id/activity_note_tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tv_date"
+        android:textAlignment="viewEnd" />
+
+</LinearLayout>
