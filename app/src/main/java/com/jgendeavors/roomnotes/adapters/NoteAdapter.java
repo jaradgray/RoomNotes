@@ -40,7 +40,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     // Instance Variables
     private List<Note> mNotes = new ArrayList<Note>();
 
-    
+
     // Setter
 
     /**
