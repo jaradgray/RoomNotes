@@ -24,6 +24,7 @@ public class NoteActivityViewModel extends AndroidViewModel {
         super(application);
 
         mRepository = new NoteRepository(application);
+        mIsEditing = new MutableLiveData<>(false); // TODO initialize this better ???
     }
 
     // API Methods this ViewModel exposes
