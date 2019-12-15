@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Room Notes</string>
 
+    <!-- Toasts -->
+    <string name="toast_note_discarded">Nothing to save. Note discarded.</string>
+
     <!-- Menus -->
     <!-- NoteActivity - Normal -->
     <string name="menu_item_edit_note_title">Edit</string>

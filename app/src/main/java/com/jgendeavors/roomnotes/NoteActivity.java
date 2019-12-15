@@ -9,8 +9,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.jgendeavors.roomnotes.entities.Note;
 import com.jgendeavors.roomnotes.viewmodels.NoteActivityViewModel;
+
+import java.util.Calendar;
 
 public class NoteActivity extends AppCompatActivity {
     // Intent Extras
@@ -46,6 +50,7 @@ public class NoteActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean aBoolean) {
                 // TODO change options menu resource
+//                invalidateOptionsMenu();
             }
         });
     }
@@ -88,10 +93,29 @@ public class NoteActivity extends AppCompatActivity {
         String title = mEtTitle.getText().toString();
         String content = mEtContent.getText().toString();
 
-        // TODO check to determine if we should actually update this Note in the database
+        // Check if title and content are both empty
+        if (title.trim().isEmpty() && content.trim().isEmpty()) {
+            // discard Note
+            Toast.makeText(this, getString(R.string.toast_note_discarded), Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
-        // TODO this Activity should have its own ViewModel so we can call insert()/update() from here instead of passing stuff back to MainActivity
+        // TODO handle updating an existing Note; the following code assumes we're creating a new one
+
+        // TODO check if any data has actually changed from the one that's already stored in the database
 
         // TODO create a Note and insert/update it via the ViewModel
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        String category = ""; // TODO get category
+        boolean isFavorited = false; // TODO get isFavorited
+        Note note = new Note(title, content, currentTime, currentTime, category, isFavorited);
+
+        mViewModel.insert(note);
+
+        // Change isEditing state
+        mViewModel.setIsEditing(false);
+
+        // TODO delete this; just for debugging
+        Toast.makeText(this, "Note saved.", Toast.LENGTH_SHORT).show();
     }
 }
