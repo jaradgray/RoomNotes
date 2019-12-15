@@ -27,6 +27,7 @@ public class NoteActivity extends AppCompatActivity {
     private EditText mEtContent;
 
     private NoteActivityViewModel mViewModel;
+    private int mOptionsMenuResourceId;
     private boolean mIsEditing;
 
 
@@ -49,9 +50,10 @@ public class NoteActivity extends AppCompatActivity {
         // observe changes to the isEditing state
         mViewModel.getIsEditing().observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
+            public void onChanged(Boolean isEditing) {
                 // TODO change options menu resource
-//                invalidateOptionsMenu();
+                mOptionsMenuResourceId = isEditing ? R.menu.activity_note_editing_menu : R.menu.activity_note_normal_menu;
+                invalidateOptionsMenu();
             }
         });
 
@@ -64,8 +66,7 @@ public class NoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        int menuId = mIsEditing ? R.menu.activity_note_editing_menu : R.menu.activity_note_normal_menu;
-        getMenuInflater().inflate(menuId, menu);
+        getMenuInflater().inflate(mOptionsMenuResourceId, menu);
         return true;
     }
 
@@ -77,6 +78,7 @@ public class NoteActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_item_edit_note:
                 // TODO implement this
+                mViewModel.setIsEditing(true);
                 return true;
             case R.id.menu_item_favorite_note:
                 // TODO implement this
@@ -105,6 +107,7 @@ public class NoteActivity extends AppCompatActivity {
             // discard Note
             Toast.makeText(this, getString(R.string.toast_note_discarded), Toast.LENGTH_SHORT).show();
             finish();
+            return;
         }
 
         // TODO handle updating an existing Note; the following code assumes we're creating a new one
