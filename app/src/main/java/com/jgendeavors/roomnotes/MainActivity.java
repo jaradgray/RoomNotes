@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jgendeavors.roomnotes.adapters.NoteAdapter;
 import com.jgendeavors.roomnotes.entities.Note;
 import com.jgendeavors.roomnotes.viewmodels.NoteViewModel;
@@ -33,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
         // Every RecyclerView needs a RecyclerView.Adapter. We'll need a reference to it, too.
         final NoteAdapter adapter = new NoteAdapter();
         recyclerView.setAdapter(adapter);
+
+        // Set up FAB
+        FloatingActionButton fab = findViewById(R.id.activity_main_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start NoteActivity
+                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Request a NoteViewModel from the Android system
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
