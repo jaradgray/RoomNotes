@@ -1,5 +1,6 @@
 package com.jgendeavors.roomnotes;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -53,6 +54,12 @@ public class NoteActivity extends AppCompatActivity {
 //                invalidateOptionsMenu();
             }
         });
+
+        // Set ActionBar stuff
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_close);
+        setTitle("Hello NoteActivity!");
     }
 
     @Override
