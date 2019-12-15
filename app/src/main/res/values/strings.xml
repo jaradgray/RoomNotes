@@ -3,6 +3,7 @@
 
     <!-- Toasts -->
     <string name="toast_note_discarded">Nothing to save. Note discarded.</string>
+    <string name="toast_error_note_id_not_set">Error: Note ID not set</string>
 
     <!-- Menus -->
     <!-- NoteActivity - Normal -->

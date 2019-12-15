@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jgendeavors.roomnotes.entities.Note;
@@ -19,12 +20,15 @@ import java.util.Calendar;
 
 public class NoteActivity extends AppCompatActivity {
     // Intent Extras
-    public static final String EXTRA_TITLE = "com.jgendeavors.roomnotes.EXTRA_TITLE";
-    public static final String EXTRA_CONTENT = "com.jgendeavors.roomnotes.EXTRA_CONTENT";
+    public static final String EXTRA_ID = "com.jgendeavors.roomnotes.EXTRA_ID";
+    public static final int EXTRA_VALUE_NO_ID = -1;
+
 
     // References to Views
     private EditText mEtTitle;
     private EditText mEtContent;
+    private TextView mTvCharacterCount;
+    private TextView mTvDate;
 
     private NoteActivityViewModel mViewModel;
     private int mOptionsMenuResourceId;
@@ -41,11 +45,33 @@ public class NoteActivity extends AppCompatActivity {
         // Get references to Views
         mEtTitle = findViewById(R.id.activity_note_et_title);
         mEtContent = findViewById(R.id.activity_note_et_content);
+        mTvCharacterCount = findViewById(R.id.activity_note_tv_charactercount);
+        mTvDate = findViewById(R.id.activity_note_tv_date);
 
-        // TODO the mIsEditing flag should probably be handled in a ViewModel, right?
+        // TODO changing mEtContent's text should update mTvCharacterCount's text
 
         // Create the ViewModel that will drive this Activity's UI
         mViewModel = ViewModelProviders.of(this).get(NoteActivityViewModel.class);
+
+        // TODO initialize stuff based on if we're editing a NEW Note, or reading an EXISTING Note
+        if (getIntent().hasExtra(EXTRA_ID)) {
+            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+            if (id == -1) {
+                // editing a new Note
+                // TODO set mViewModel.isEditing
+                mViewModel.setIsEditing(true);
+            } else {
+                // reading an existing Note
+                // TODO set texts, set mViewModel.isEditing
+                Note note = mViewModel.getNote(id);
+                mEtTitle.setText(note.getTitle());
+                mEtContent.setText(note.getContent());
+                mTvDate.setText(String.valueOf(note.getDateCreated())); // TODO set date created/modified text
+                mViewModel.setIsEditing(false);
+            }
+        } else {
+            Toast.makeText(this, getString(R.string.toast_error_note_id_not_set), Toast.LENGTH_SHORT).show();
+        }
 
         // observe changes to the isEditing state
         mViewModel.getIsEditing().observe(this, new Observer<Boolean>() {

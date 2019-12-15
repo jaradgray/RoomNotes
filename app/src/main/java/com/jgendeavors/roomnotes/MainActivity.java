@@ -13,6 +13,7 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jgendeavors.roomnotes.adapters.NoteAdapter;
 import com.jgendeavors.roomnotes.entities.Note;
+import com.jgendeavors.roomnotes.viewmodels.NoteActivityViewModel;
 import com.jgendeavors.roomnotes.viewmodels.NoteViewModel;
 
 import java.util.List;
@@ -37,14 +38,21 @@ public class MainActivity extends AppCompatActivity {
         final NoteAdapter adapter = new NoteAdapter();
         recyclerView.setAdapter(adapter);
 
+        // Handle clicks on RecyclerView items by implementing NoteAdapter.OnItemClickListener interface
+        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(Note note) {
+                launchNoteActivity(note.getId());
+            }
+        });
+
         // Set up FAB
         FloatingActionButton fab = findViewById(R.id.activity_main_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Start NoteActivity
-                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-                startActivity(intent);
+                launchNoteActivity(NoteActivity.EXTRA_VALUE_NO_ID);
             }
         });
 
@@ -63,5 +71,19 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setNotes(notes);
             }
         });
+    }
+
+
+    // Private Methods
+
+    /**
+     * Creates an Intent to start NoteActivity, passing the given noteId as an extra.
+     *
+     * @param noteId
+     */
+    private void launchNoteActivity(int noteId) {
+        Intent intent = new Intent(this, NoteActivity.class);
+        intent.putExtra(NoteActivity.EXTRA_ID, noteId);
+        startActivity(intent);
     }
 }

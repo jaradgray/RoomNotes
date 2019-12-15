@@ -54,6 +54,16 @@ public class NoteRepository {
         new DeleteNoteAsyncTask(noteDao).execute(note);
     }
 
+    public Note getNote(int id) {
+        Note result = null;
+        try {
+            result = new GetNoteAsyncTask(noteDao).execute(id).get();
+        } catch (Exception e) {
+            System.err.println("NoteRepository.getNote() error: " + e);
+        }
+        return result;
+    }
+
     public LiveData<List<Note>> getAllNotes() {
         return allNotes;
     }
@@ -110,6 +120,22 @@ public class NoteRepository {
         protected Void doInBackground(Note... notes) {
             noteDao.delete(notes[0]);
             return null;
+        }
+    }
+
+    private static class GetNoteAsyncTask extends AsyncTask<Integer, Void, Note> {
+        // Instance Variables
+        private NoteDao noteDao; // since this AsyncTask is static, it doesn't have access to the repository's DAO
+
+        // Constructor
+        public GetNoteAsyncTask(NoteDao noteDao) {
+            this.noteDao = noteDao;
+        }
+
+        // Overridden methods
+        @Override
+        protected Note doInBackground(Integer... integers) {
+            return noteDao.getNote(integers[0]);
         }
     }
 }

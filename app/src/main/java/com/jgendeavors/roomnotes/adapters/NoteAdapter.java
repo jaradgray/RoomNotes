@@ -33,8 +33,29 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             tvTitle = itemView.findViewById(R.id.item_note_tv_title);
             tvContent = itemView.findViewById(R.id.item_note_tv_content);
             tvDate = itemView.findViewById(R.id.item_note_tv_date);
+
+            // Capture clicks on this item
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null) {
+                        // notify mListener
+                        int position = getAdapterPosition();
+                        mListener.onItemClicked(mNotes.get(position));
+                    }
+                }
+            });
         }
     }
+
+    /**
+     * The interface that reports clicks on items in this Adapter's RecyclerView
+     */
+    public interface OnItemClickListener {
+        void onItemClicked(Note note);
+    }
+    private OnItemClickListener mListener;
+    public void setOnItemClickListener(OnItemClickListener listener) { mListener = listener; }
 
 
     // Instance Variables

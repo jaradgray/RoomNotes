@@ -30,6 +30,7 @@ public class NoteActivityViewModel extends AndroidViewModel {
     // API Methods this ViewModel exposes
     public void insert(Note note) { mRepository.insert(note); }
     public void update(Note note) { mRepository.update(note); }
+    public Note getNote(int id) { return mRepository.getNote(id); }
     public LiveData<Boolean> getIsEditing() { return mIsEditing; }
     public void setIsEditing(boolean value) { mIsEditing.setValue(value); }
 }

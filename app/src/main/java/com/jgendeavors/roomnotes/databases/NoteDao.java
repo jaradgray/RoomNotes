@@ -27,6 +27,9 @@ public interface NoteDao {
     @Delete
     void delete(Note note);
 
+    @Query("SELECT * FROM note_table WHERE id = :id")
+    Note getNote(int id);
+
     // TODO remove this when I figure out how to implement the ordering
     @Query("SELECT * FROM note_table ORDER BY date_modified DESC")
     LiveData<List<Note>> getAllNotes();
