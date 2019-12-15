@@ -54,10 +54,10 @@ public interface NoteDao {
     // These methods return Notes with matching is_favorited column
     @Query("SELECT * FROM note_table WHERE is_favorited = :isFavorited ORDER BY date_modified DESC")
     LiveData<List<Note>> getNotesByDateModifiedDescending(boolean isFavorited);
-    @Query("SELECT * FROM note_table is_favorited = :isFavorited ORDER BY date_modified ASC")
+    @Query("SELECT * FROM note_table WHERE is_favorited = :isFavorited ORDER BY date_modified ASC")
     LiveData<List<Note>> getNotesByDateModifiedAscending(boolean isFavorited);
-    @Query("SELECT * FROM note_table is_favorited = :isFavorited ORDER BY date_created DESC")
+    @Query("SELECT * FROM note_table WHERE is_favorited = :isFavorited ORDER BY date_created DESC")
     LiveData<List<Note>> getNotesByDateCreatedDescending(boolean isFavorited);
-    @Query("SELECT * FROM note_table is_favorited = :isFavorited ORDER BY date_created ASC")
+    @Query("SELECT * FROM note_table WHERE is_favorited = :isFavorited ORDER BY date_created ASC")
     LiveData<List<Note>> getNotesByDateCreatedAscending(boolean isFavorited);
 }
