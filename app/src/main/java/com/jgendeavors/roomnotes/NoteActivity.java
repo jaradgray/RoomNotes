@@ -1,12 +1,16 @@
 package com.jgendeavors.roomnotes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+
+import com.jgendeavors.roomnotes.viewmodels.NoteActivityViewModel;
 
 public class NoteActivity extends AppCompatActivity {
     // Intent Extras
@@ -17,6 +21,7 @@ public class NoteActivity extends AppCompatActivity {
     private EditText mEtTitle;
     private EditText mEtContent;
 
+    private NoteActivityViewModel mViewModel;
     private boolean mIsEditing;
 
 
@@ -32,6 +37,17 @@ public class NoteActivity extends AppCompatActivity {
         mEtContent = findViewById(R.id.activity_note_et_content);
 
         // TODO the mIsEditing flag should probably be handled in a ViewModel, right?
+
+        // Create the ViewModel that will drive this Activity's UI
+        mViewModel = ViewModelProviders.of(this).get(NoteActivityViewModel.class);
+
+        // observe changes to the isEditing state
+        mViewModel.getIsEditing().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                // TODO change options menu resource
+            }
+        });
     }
 
     @Override
@@ -76,12 +92,6 @@ public class NoteActivity extends AppCompatActivity {
 
         // TODO this Activity should have its own ViewModel so we can call insert()/update() from here instead of passing stuff back to MainActivity
 
-
-        // Build the Intent we will send
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, title);
-        data.putExtra(EXTRA_CONTENT, content);
-
-        this.setResult(RESULT_OK, data);
+        // TODO create a Note and insert/update it via the ViewModel
     }
 }
