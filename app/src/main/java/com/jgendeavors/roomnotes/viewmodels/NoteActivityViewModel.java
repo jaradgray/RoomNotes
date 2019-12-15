@@ -7,6 +7,8 @@ import com.jgendeavors.roomnotes.repositories.NoteRepository;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModel;
 public class NoteActivityViewModel extends AndroidViewModel {
 
     private NoteRepository mRepository;
+    private MutableLiveData<Boolean> mIsEditing;
 
     public NoteActivityViewModel(@NonNull Application application) {
         super(application);
@@ -26,4 +29,6 @@ public class NoteActivityViewModel extends AndroidViewModel {
     // API Methods this ViewModel exposes
     public void insert(Note note) { mRepository.insert(note); }
     public void update(Note note) { mRepository.update(note); }
+    public LiveData<Boolean> getIsEditing() { return mIsEditing; }
+    public void setIsEditing(boolean value) { mIsEditing.setValue(value); }
 }
