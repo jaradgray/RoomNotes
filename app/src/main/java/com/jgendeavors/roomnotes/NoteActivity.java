@@ -22,6 +22,7 @@ import com.jgendeavors.roomnotes.entities.Note;
 import com.jgendeavors.roomnotes.viewmodels.NoteActivityViewModel;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class NoteActivity extends AppCompatActivity {
     // Intent Extras
@@ -71,7 +72,8 @@ public class NoteActivity extends AppCompatActivity {
                 Note note = mViewModel.getNote(mNoteId);
                 mEtTitle.setText(note.getTitle());
                 mEtContent.setText(note.getContent());
-                mTvDate.setText(String.valueOf(note.getDateCreated())); // TODO set date created/modified text
+                String dateLastModifiedText = getString(R.string.activity_note_date_modified_format, getTimeAsString(note.getDateModified()));
+                mTvDate.setText(dateLastModifiedText);
                 mViewModel.setIsEditing(false);
             }
         } else {
@@ -93,6 +95,8 @@ public class NoteActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
             }
         });
+
+        // TODO change stuff to observe changes to the Note we're dealing with, (so e.g. mTvDate automatically updates when the Note's dateModified changes)...
 
         // Set ActionBar stuff
         ActionBar actionBar = getSupportActionBar();
@@ -198,11 +202,42 @@ public class NoteActivity extends AppCompatActivity {
 
     /**
      * Hide the soft keyboard using the windowToken of the given view.
-     * 
+     *
      * @param view
      */
     private void hideSoftKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    /**
+     * TODO document this method
+     *
+     * @param millis
+     * @return
+     */
+    private String getTimeAsString(long millis) {
+        final long millisPerDay = 1000 * 60 * 60 * 24;
+        Calendar calendar = Calendar.getInstance();
+        long currentTime = calendar.getTimeInMillis();
+        calendar.setTimeInMillis(millis);
+
+        String result = "";
+        if (currentTime - millis < millisPerDay) {
+            // millis represents a time within the last 24 hours, return a time like "8:43 PM"
+            int hour = calendar.get(Calendar.HOUR);
+            int minute = calendar.get(Calendar.MINUTE);
+            String ampm = calendar.getDisplayName(Calendar.AM_PM, Calendar.LONG, Locale.getDefault());
+
+            result = getString(R.string.activity_note_hour_format, hour, minute, ampm);
+        } else {
+            // millis represents a time longer than 24 hours ago, return a date like "December 13, 2019"
+            String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int year = calendar.get(Calendar.YEAR);
+
+            result = getString(R.string.activity_note_day_format, month, day, year);
+        }
+        return result;
     }
 }
