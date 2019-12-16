@@ -109,14 +109,14 @@ public class NoteActivity extends AppCompatActivity {
                 saveNote();
                 return true;
             case R.id.menu_item_edit_note:
-                // TODO implement this
                 mViewModel.setIsEditing(true);
                 return true;
             case R.id.menu_item_favorite_note:
                 // TODO implement this
                 return true;
             case R.id.menu_item_delete_note:
-                // TODO implement this
+                deleteNote();
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -139,10 +139,7 @@ public class NoteActivity extends AppCompatActivity {
             // discard Note
             // delete the Note if we're dealing with an existing one
             if (mNoteId != EXTRA_VALUE_NO_ID) {
-                // create a dummy Note, set its ID, and delete it from the database
-                Note note = new Note(null, null, -1, -1, null, false);
-                note.setId(mNoteId);
-                mViewModel.delete(note);
+                deleteNote();
             }
             Toast.makeText(this, getString(R.string.toast_note_discarded), Toast.LENGTH_SHORT).show();
             finish();
@@ -170,5 +167,15 @@ public class NoteActivity extends AppCompatActivity {
 
         // Change isEditing state
         mViewModel.setIsEditing(false);
+    }
+
+    /**
+     * Delete the Note we're dealing with from the database, via the ViewModel.
+     */
+    private void deleteNote() {
+        // create a dummy Note, set its ID, and delete it from the database
+        Note note = new Note(null, null, -1, -1, null, false);
+        note.setId(mNoteId);
+        mViewModel.delete(note);
     }
 }
