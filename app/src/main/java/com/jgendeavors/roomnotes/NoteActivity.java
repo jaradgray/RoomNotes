@@ -137,7 +137,13 @@ public class NoteActivity extends AppCompatActivity {
         // Check if title and content are both empty
         if (title.trim().isEmpty() && content.trim().isEmpty()) {
             // discard Note
-            // TODO delete the Note if we're dealing with an existing one
+            // delete the Note if we're dealing with an existing one
+            if (mNoteId != EXTRA_VALUE_NO_ID) {
+                // create a dummy Note, set its ID, and delete it from the database
+                Note note = new Note(null, null, -1, -1, null, false);
+                note.setId(mNoteId);
+                mViewModel.delete(note);
+            }
             Toast.makeText(this, getString(R.string.toast_note_discarded), Toast.LENGTH_SHORT).show();
             finish();
             return;
