@@ -32,7 +32,7 @@ public class NoteActivity extends AppCompatActivity {
 
     private NoteActivityViewModel mViewModel;
     private int mOptionsMenuResourceId;
-    private boolean mIsEditing;
+    private int mNoteId;
 
 
     // Overridden Methods
@@ -55,15 +55,15 @@ public class NoteActivity extends AppCompatActivity {
 
         // TODO initialize stuff based on if we're editing a NEW Note, or reading an EXISTING Note
         if (getIntent().hasExtra(EXTRA_ID)) {
-            int id = getIntent().getIntExtra(EXTRA_ID, -1);
-            if (id == -1) {
+            mNoteId = getIntent().getIntExtra(EXTRA_ID, -1);
+            if (mNoteId == EXTRA_VALUE_NO_ID) {
                 // editing a new Note
                 // TODO set mViewModel.isEditing
                 mViewModel.setIsEditing(true);
             } else {
                 // reading an existing Note
                 // TODO set texts, set mViewModel.isEditing
-                Note note = mViewModel.getNote(id);
+                Note note = mViewModel.getNote(mNoteId);
                 mEtTitle.setText(note.getTitle());
                 mEtContent.setText(note.getContent());
                 mTvDate.setText(String.valueOf(note.getDateCreated())); // TODO set date created/modified text
@@ -77,8 +77,14 @@ public class NoteActivity extends AppCompatActivity {
         mViewModel.getIsEditing().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isEditing) {
-                // TODO change options menu resource
-                mOptionsMenuResourceId = isEditing ? R.menu.activity_note_editing_menu : R.menu.activity_note_normal_menu;
+                // Update UI in response to change in isEditing state
+                if (isEditing) {
+                    mOptionsMenuResourceId = R.menu.activity_note_editing_menu;
+                    // TODO show keyboard
+                } else {
+                    mOptionsMenuResourceId = R.menu.activity_note_normal_menu;
+                    // TODO hide keyboard
+                }
                 invalidateOptionsMenu();
             }
         });
@@ -131,27 +137,32 @@ public class NoteActivity extends AppCompatActivity {
         // Check if title and content are both empty
         if (title.trim().isEmpty() && content.trim().isEmpty()) {
             // discard Note
+            // TODO delete the Note if we're dealing with an existing one
             Toast.makeText(this, getString(R.string.toast_note_discarded), Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        // TODO handle updating an existing Note; the following code assumes we're creating a new one
-
-        // TODO check if any data has actually changed from the one that's already stored in the database
-
-        // TODO create a Note and insert/update it via the ViewModel
+        // Insert a new Note or update an existing Note via the ViewModel based on mNoteId
         long currentTime = Calendar.getInstance().getTimeInMillis();
         String category = ""; // TODO get category
         boolean isFavorited = false; // TODO get isFavorited
-        Note note = new Note(title, content, currentTime, currentTime, category, isFavorited);
-
-        mViewModel.insert(note);
+        if (mNoteId == EXTRA_VALUE_NO_ID) {
+            // insert a NEW Note
+            Note note = new Note(title.trim(), content.trim(), currentTime, currentTime, category, isFavorited);
+            mViewModel.insert(note);
+        } else {
+            // update an EXISTING Note if its data has changed
+            Note oldNote = mViewModel.getNote(mNoteId);
+            boolean dataHasChanged = !oldNote.getTitle().equals(title.trim()) || !oldNote.getContent().equals(content.trim());
+            if (dataHasChanged) {
+                Note note = new Note(title.trim(), content.trim(), oldNote.getDateCreated(), currentTime, category, isFavorited);
+                note.setId(mNoteId);
+                mViewModel.update(note);
+            }
+        }
 
         // Change isEditing state
         mViewModel.setIsEditing(false);
-
-        // TODO delete this; just for debugging
-        Toast.makeText(this, "Note saved.", Toast.LENGTH_SHORT).show();
     }
 }
