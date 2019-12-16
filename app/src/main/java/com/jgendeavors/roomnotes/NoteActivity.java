@@ -1,14 +1,19 @@
 package com.jgendeavors.roomnotes;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,10 +85,10 @@ public class NoteActivity extends AppCompatActivity {
                 // Update UI in response to change in isEditing state
                 if (isEditing) {
                     mOptionsMenuResourceId = R.menu.activity_note_editing_menu;
-                    // TODO show keyboard
+                    showSoftKeyboard(mEtContent);
                 } else {
                     mOptionsMenuResourceId = R.menu.activity_note_normal_menu;
-                    // TODO hide keyboard
+                    hideSoftKeyboard(mEtContent);
                 }
                 invalidateOptionsMenu();
             }
@@ -177,5 +182,27 @@ public class NoteActivity extends AppCompatActivity {
         Note note = new Note(null, null, -1, -1, null, false);
         note.setId(mNoteId);
         mViewModel.delete(note);
+    }
+
+    /**
+     * Show the soft keyboard if the given View is granted focus.
+     *
+     * @param view
+     */
+    private void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    /**
+     * Hide the soft keyboard using the windowToken of the given view.
+     * 
+     * @param view
+     */
+    private void hideSoftKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 }
