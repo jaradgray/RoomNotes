@@ -75,7 +75,6 @@ public class NoteActivity extends AppCompatActivity {
         // set ViewModel state based on if we're editing a NEW Note, or reading an EXISTING Note
         if (getIntent().hasExtra(EXTRA_ID)) {
             int noteId = getIntent().getIntExtra(EXTRA_ID, EXTRA_VALUE_NO_ID);
-            Toast.makeText(this, "noteId: " + noteId, Toast.LENGTH_SHORT).show();
             if (EXTRA_VALUE_NO_ID == noteId) {
                 // editing a new Note
                 mViewModel.setIsEditing(true);
