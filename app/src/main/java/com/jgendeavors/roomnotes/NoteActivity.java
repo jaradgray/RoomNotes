@@ -38,7 +38,6 @@ public class NoteActivity extends AppCompatActivity {
 
     private NoteActivityViewModel mViewModel;
     private int mOptionsMenuResourceId;
-    private int mNoteId;
 
 
     // Overridden Methods
@@ -59,22 +58,17 @@ public class NoteActivity extends AppCompatActivity {
         // Create the ViewModel that will drive this Activity's UI
         mViewModel = ViewModelProviders.of(this).get(NoteActivityViewModel.class);
 
-        // TODO initialize stuff based on if we're editing a NEW Note, or reading an EXISTING Note
+        // set ViewModel state based on if we're editing a NEW Note, or reading an EXISTING Note
         if (getIntent().hasExtra(EXTRA_ID)) {
-            mNoteId = getIntent().getIntExtra(EXTRA_ID, -1);
-            if (mNoteId == EXTRA_VALUE_NO_ID) {
+            int noteId = getIntent().getIntExtra(EXTRA_ID, EXTRA_VALUE_NO_ID);
+            Toast.makeText(this, "noteId: " + noteId, Toast.LENGTH_SHORT).show();
+            if (EXTRA_VALUE_NO_ID == noteId) {
                 // editing a new Note
-                // TODO set mViewModel.isEditing
                 mViewModel.setIsEditing(true);
             } else {
                 // reading an existing Note
-                // TODO set texts, set mViewModel.isEditing
-                Note note = mViewModel.getNote(mNoteId);
-                mEtTitle.setText(note.getTitle());
-                mEtContent.setText(note.getContent());
-                String dateLastModifiedText = getString(R.string.activity_note_date_modified_format, getTimeAsString(note.getDateModified()));
-                mTvDate.setText(dateLastModifiedText);
                 mViewModel.setIsEditing(false);
+                mViewModel.setNoteById(noteId);
             }
         } else {
             Toast.makeText(this, getString(R.string.toast_error_note_id_not_set), Toast.LENGTH_SHORT).show();
@@ -96,7 +90,21 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
-        // TODO change stuff to observe changes to the Note we're dealing with, (so e.g. mTvDate automatically updates when the Note's dateModified changes)...
+        // observe changes to the ViewModel's Note
+        mViewModel.getNote().observe(this, new Observer<Note>() {
+            @Override
+            public void onChanged(Note note) {
+                if (note == null) {
+                    // TODO set View data to indicate no Note
+                } else {
+                    // set View data to match Note data
+                    mEtTitle.setText(note.getTitle());
+                    mEtContent.setText(note.getContent());
+                    String dateLastModifiedText = getString(R.string.activity_note_date_modified_format, getTimeAsString(note.getDateModified()));
+                    mTvDate.setText(dateLastModifiedText);
+                }
+            }
+        });
 
         // Set ActionBar stuff
         ActionBar actionBar = getSupportActionBar();
@@ -136,18 +144,20 @@ public class NoteActivity extends AppCompatActivity {
     // Private Methods
 
     /**
-     * Sends View data to the parent Activity.
+     *
      */
     private void saveNote() {
         // Get data from Views
         String title = mEtTitle.getText().toString();
         String content = mEtContent.getText().toString();
 
+        // TODO keep as little logic as possible in the Activity, let the ViewModel handle as much as possible
+
         // Check if title and content are both empty
         if (title.trim().isEmpty() && content.trim().isEmpty()) {
             // discard Note
             // delete the Note if we're dealing with an existing one
-            if (mNoteId != EXTRA_VALUE_NO_ID) {
+            if (mViewModel.getNote().getValue() != null) {
                 deleteNote();
             }
             Toast.makeText(this, getString(R.string.toast_note_discarded), Toast.LENGTH_SHORT).show();
@@ -155,24 +165,27 @@ public class NoteActivity extends AppCompatActivity {
             return;
         }
 
-        // Insert a new Note or update an existing Note via the ViewModel based on mNoteId
-        long currentTime = Calendar.getInstance().getTimeInMillis();
+        // save the Note we're dealing with via the ViewModel
         String category = ""; // TODO get category
         boolean isFavorited = false; // TODO get isFavorited
-        if (mNoteId == EXTRA_VALUE_NO_ID) {
-            // insert a NEW Note
-            Note note = new Note(title.trim(), content.trim(), currentTime, currentTime, category, isFavorited);
-            mViewModel.insert(note);
-        } else {
-            // update an EXISTING Note if its data has changed
-            Note oldNote = mViewModel.getNote(mNoteId);
-            boolean dataHasChanged = !oldNote.getTitle().equals(title.trim()) || !oldNote.getContent().equals(content.trim());
-            if (dataHasChanged) {
-                Note note = new Note(title.trim(), content.trim(), oldNote.getDateCreated(), currentTime, category, isFavorited);
-                note.setId(mNoteId);
-                mViewModel.update(note);
-            }
-        }
+
+        mViewModel.saveNote(title, content, category, isFavorited);
+
+        // TODO delete the following
+//        if (mViewModel.getNote().getValue() == null) {
+//            // we're saving a NEW Note
+//            Note note = new Note(title.trim(), content.trim(), currentTime, currentTime, category, isFavorited);
+//            mViewModel.saveNewNote(note);
+//        } else {
+//            // we're saving an EXISTING Note if its data has changed
+//            Note oldNote = mViewModel.getNote().getValue();
+//            boolean dataHasChanged = !oldNote.getTitle().equals(title.trim()) || !oldNote.getContent().equals(content.trim());
+//            if (dataHasChanged) {
+//                Note note = new Note(title.trim(), content.trim(), oldNote.getDateCreated(), currentTime, category, isFavorited);
+//                note.setId(oldNote.getId());
+//                mViewModel.saveExistingNote(note);
+//            }
+//        }
 
         // Change isEditing state
         mViewModel.setIsEditing(false);
@@ -182,10 +195,7 @@ public class NoteActivity extends AppCompatActivity {
      * Delete the Note we're dealing with from the database, via the ViewModel.
      */
     private void deleteNote() {
-        // create a dummy Note, set its ID, and delete it from the database
-        Note note = new Note(null, null, -1, -1, null, false);
-        note.setId(mNoteId);
-        mViewModel.delete(note);
+        mViewModel.deleteNote();
     }
 
     /**

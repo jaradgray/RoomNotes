@@ -10,6 +10,7 @@ import com.jgendeavors.roomnotes.entities.Note;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * The Repository class is in the Android recommended architecture.
@@ -42,9 +43,7 @@ public class NoteRepository {
     // These are the API methods the Repository exposes to the outside
     // Remember, database accesses must be performed on a background thread
 
-    public void insert(Note note) {
-        new InsertNoteAsyncTask(noteDao).execute(note);
-    }
+    public void insert(Note note) { new InsertNoteAsyncTask(noteDao).execute(note); }
 
     public void update(Note note) {
         new UpdateNoteAsyncTask(noteDao).execute(note);
@@ -58,9 +57,7 @@ public class NoteRepository {
         Note result = null;
         try {
             result = new GetNoteAsyncTask(noteDao).execute(id).get();
-        } catch (Exception e) {
-            System.err.println("NoteRepository.getNote() error: " + e);
-        }
+        } catch (Exception e) { System.err.println("NoteRepository.getNote(int) Error: " + e); }
         return result;
     }
 
