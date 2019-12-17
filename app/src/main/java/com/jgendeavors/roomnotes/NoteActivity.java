@@ -109,12 +109,15 @@ public class NoteActivity extends AppCompatActivity {
             @Override
             public void onChanged(Note note) {
                 if (note == null) {
-                    // TODO set View data to indicate no Note
+                    // set View data to indicate no Note
+                    mTvCharacterCount.setText(getString(R.string.activity_note_character_count_format, 0));
+                    mTvDate.setVisibility(View.GONE);
                 } else {
                     // set View data to match Note data
                     mEtTitle.setText(note.getTitle());
                     mEtContent.setText(note.getContent());
                     String dateLastModifiedText = getString(R.string.activity_note_date_modified_format, getTimeAsString(note.getDateModified()));
+                    mTvDate.setVisibility(View.VISIBLE);
                     mTvDate.setText(dateLastModifiedText);
                 }
             }

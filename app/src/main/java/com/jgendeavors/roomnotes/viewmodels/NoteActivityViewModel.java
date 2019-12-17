@@ -30,7 +30,7 @@ public class NoteActivityViewModel extends AndroidViewModel {
 
         mRepository = new NoteRepository(application);
         mIsEditing = new MutableLiveData<>(false); // TODO initialize this better ???
-        mNote = new MutableLiveData<>();
+        mNote = new MutableLiveData<>(null);
     }
 
     // API Methods this ViewModel exposes
