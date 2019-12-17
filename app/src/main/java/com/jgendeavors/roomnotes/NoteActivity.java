@@ -148,13 +148,13 @@ public class NoteActivity extends AppCompatActivity {
      */
     private void saveNote() {
         // Get data from Views
-        String title = mEtTitle.getText().toString();
-        String content = mEtContent.getText().toString();
+        String title = mEtTitle.getText().toString().trim();
+        String content = mEtContent.getText().toString().trim();
 
         // TODO keep as little logic as possible in the Activity, let the ViewModel handle as much as possible
 
         // Check if title and content are both empty
-        if (title.trim().isEmpty() && content.trim().isEmpty()) {
+        if (title.isEmpty() && content.isEmpty()) {
             // discard Note
             // delete the Note if we're dealing with an existing one
             if (mViewModel.getNote().getValue() != null) {
@@ -170,22 +170,6 @@ public class NoteActivity extends AppCompatActivity {
         boolean isFavorited = false; // TODO get isFavorited
 
         mViewModel.saveNote(title, content, category, isFavorited);
-
-        // TODO delete the following
-//        if (mViewModel.getNote().getValue() == null) {
-//            // we're saving a NEW Note
-//            Note note = new Note(title.trim(), content.trim(), currentTime, currentTime, category, isFavorited);
-//            mViewModel.saveNewNote(note);
-//        } else {
-//            // we're saving an EXISTING Note if its data has changed
-//            Note oldNote = mViewModel.getNote().getValue();
-//            boolean dataHasChanged = !oldNote.getTitle().equals(title.trim()) || !oldNote.getContent().equals(content.trim());
-//            if (dataHasChanged) {
-//                Note note = new Note(title.trim(), content.trim(), oldNote.getDateCreated(), currentTime, category, isFavorited);
-//                note.setId(oldNote.getId());
-//                mViewModel.saveExistingNote(note);
-//            }
-//        }
 
         // Change isEditing state
         mViewModel.setIsEditing(false);
