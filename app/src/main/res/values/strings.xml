@@ -5,12 +5,16 @@
     <string name="toast_note_discarded">Nothing to save. Note discarded.</string>
     <string name="toast_error_note_id_not_set">Error: Note ID not set</string>
 
+    <!-- General Format Strings -->
+    <string name="timestamp_day_format">%s %d, %d</string>
+    <string name="timestamp_hour_format">%d:%02d %s</string>
+
+    <!-- NoteAdapter -->
+    <string name="note_adapter_date_format">Modified: %s / Created: %s</string>
+
     <!-- NoteActivity -->
     <string name="activity_note_character_count_format">%d characters</string>
     <string name="activity_note_date_modified_format">Last modified: %s</string>
-    <string name="activity_note_day_format">%s %d, %d</string>
-    <string name="activity_note_hour_format">%d:%02d %s</string>
-
 
     <!-- Menus -->
     <!-- NoteActivity - Normal -->

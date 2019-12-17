@@ -1,5 +1,6 @@
 package com.jgendeavors.roomnotes.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,10 @@ import android.widget.TextView;
 
 import com.jgendeavors.roomnotes.R;
 import com.jgendeavors.roomnotes.entities.Note;
+import com.jgendeavors.roomnotes.util.Util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -85,7 +88,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
     /**
-     * Populate View (NoteViewHolder) with data from the corresponding Note object.
+     * Populate item View (NoteViewHolder) with data from the corresponding Note object.
      *
      * @param holder
      * @param position
@@ -96,8 +99,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         holder.tvTitle.setText(note.getTitle());
         holder.tvContent.setText(note.getContent());
-        // TODO format date text
-        holder.tvDate.setText(String.valueOf(note.getDateCreated()));
+        // Set tvDate's text via format String resource and utility method.
+        // To do that we need a Context reference, which we can get from any View object
+        Context context = holder.tvDate.getContext();
+        String dateLastModified = Util.getTimeAsString(context, note.getDateModified(), Calendar.SHORT);
+        String dateCreated = Util.getTimeAsString(context, note.getDateCreated(), Calendar.SHORT);
+        String dateText = context.getString(R.string.note_adapter_date_format,
+                dateLastModified, dateCreated);
+        holder.tvDate.setText(dateText);
     }
 
     @Override
