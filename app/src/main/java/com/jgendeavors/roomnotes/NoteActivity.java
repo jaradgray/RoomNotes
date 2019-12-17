@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +55,19 @@ public class NoteActivity extends AppCompatActivity {
         mTvCharacterCount = findViewById(R.id.activity_note_tv_charactercount);
         mTvDate = findViewById(R.id.activity_note_tv_date);
 
-        // TODO changing mEtContent's text should update mTvCharacterCount's text
+        // update mTvCharacterCount's text when mEtContent's text changes
+        mEtContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mTvCharacterCount.setText(getString(R.string.activity_note_character_count_format, editable.length()));
+            }
+        });
 
         // Create the ViewModel that will drive this Activity's UI
         mViewModel = ViewModelProviders.of(this).get(NoteActivityViewModel.class);
