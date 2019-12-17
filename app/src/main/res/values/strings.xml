@@ -9,7 +9,7 @@
     <string name="activity_note_character_count_format">%d characters</string>
     <string name="activity_note_date_modified_format">Last modified: %s</string>
     <string name="activity_note_day_format">%s %d, %d</string>
-    <string name="activity_note_hour_format">%d:%d %s</string>
+    <string name="activity_note_hour_format">%d:%02d %s</string>
 
 
     <!-- Menus -->

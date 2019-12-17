@@ -236,6 +236,7 @@ public class NoteActivity extends AppCompatActivity {
         if (currentTime - millis < millisPerDay) {
             // millis represents a time within the last 24 hours, return a time like "8:43 PM"
             int hour = calendar.get(Calendar.HOUR);
+            if (hour == 0) hour = 12;
             int minute = calendar.get(Calendar.MINUTE);
             String ampm = calendar.getDisplayName(Calendar.AM_PM, Calendar.LONG, Locale.getDefault());
 
