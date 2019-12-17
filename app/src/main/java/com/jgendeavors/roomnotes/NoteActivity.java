@@ -70,6 +70,11 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
+        // Set ActionBar stuff
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_close);
+        setTitle("");
+
         // Create the ViewModel that will drive this Activity's UI
         mViewModel = ViewModelProviders.of(this).get(NoteActivityViewModel.class);
 
@@ -94,9 +99,11 @@ public class NoteActivity extends AppCompatActivity {
             public void onChanged(Boolean isEditing) {
                 // Update UI in response to change in isEditing state
                 if (isEditing) {
+                    actionBar.setDisplayHomeAsUpEnabled(false);
                     mOptionsMenuResourceId = R.menu.activity_note_editing_menu;
                     showSoftKeyboard(mEtContent);
                 } else {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
                     mOptionsMenuResourceId = R.menu.activity_note_normal_menu;
                     hideSoftKeyboard(mEtContent);
                 }
@@ -123,12 +130,6 @@ public class NoteActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Set ActionBar stuff
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Hello NoteActivity!");
     }
 
     @Override
