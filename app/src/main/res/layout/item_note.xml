@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="tv_title"
-            android:textAppearance="@style/Text.Bold"
+            android:textAppearance="@style/Text.Medium.Bold"
             android:maxLines="1"
             android:ellipsize="end"
             android:layout_below="@id/item_note_iv_favorited"/>
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="tv_content"
-            android:textAppearance="@style/Text"
+            android:textAppearance="@style/Text.Medium"
             android:lines="4"
             android:maxLines="4"
             android:ellipsize="end"
