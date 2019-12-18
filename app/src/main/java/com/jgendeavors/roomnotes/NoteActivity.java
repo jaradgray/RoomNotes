@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -83,6 +84,20 @@ public class NoteActivity extends AppCompatActivity {
         };
         mEtTitle.setOnFocusChangeListener(focusChangeListener);
         mEtContent.setOnFocusChangeListener(focusChangeListener);
+        
+        // Handle clicks on the root Layout
+        ViewGroup rootLayout = findViewById(R.id.activity_note_root_layout);
+        rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // set ViewModel's isEditing flag, focus mEtContent, and move cursor to end of content
+                if (mViewModel != null && !mViewModel.getIsEditing().getValue()) {
+                    mViewModel.setIsEditing(true);
+                }
+                mEtContent.requestFocus();
+                mEtContent.setSelection(mEtContent.length());
+            }
+        });
 
         // Set ActionBar stuff
         final ActionBar actionBar = getSupportActionBar();
