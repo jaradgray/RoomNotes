@@ -70,6 +70,19 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
+        // TODO comment
+        View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                // Check if view has focus and ViewModel isn't already in isEditing state
+                if (hasFocus && mViewModel != null && !mViewModel.getIsEditing().getValue()) {
+                    mViewModel.setIsEditing(true);
+                }
+            }
+        };
+        mEtTitle.setOnFocusChangeListener(focusChangeListener);
+        mEtContent.setOnFocusChangeListener(focusChangeListener);
+
         // Set ActionBar stuff
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_close);
@@ -97,15 +110,16 @@ public class NoteActivity extends AppCompatActivity {
         mViewModel.getIsEditing().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isEditing) {
+                View focusedView = (mEtTitle.hasFocus()) ? mEtTitle : mEtContent;
                 // Update UI in response to change in isEditing state
                 if (isEditing) {
                     actionBar.setDisplayHomeAsUpEnabled(false);
                     mOptionsMenuResourceId = R.menu.activity_note_editing_menu;
-                    showSoftKeyboard(mEtContent);
+                    showSoftKeyboard(focusedView);
                 } else {
                     actionBar.setDisplayHomeAsUpEnabled(true);
                     mOptionsMenuResourceId = R.menu.activity_note_normal_menu;
-                    hideSoftKeyboard(mEtContent);
+                    hideSoftKeyboard(focusedView);
                 }
                 invalidateOptionsMenu();
             }
@@ -207,7 +221,7 @@ public class NoteActivity extends AppCompatActivity {
      * @param view
      */
     private void showSoftKeyboard(View view) {
-        if (view.requestFocus()) {
+        if (!view.hasFocus() && view.requestFocus()) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
         }
