@@ -70,7 +70,8 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
-        // TODO comment
+        // The OnFocusChangeListener that will set ViewModel's isEditing flag
+        // when the Views it's applied to receive focus
         View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -110,6 +111,8 @@ public class NoteActivity extends AppCompatActivity {
         mViewModel.getIsEditing().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isEditing) {
+                // showSoftKeyboard(View) will focus this View unless it already has focus.
+                // We'll set it to mEtContent unless mEtTitle has focus
                 View focusedView = (mEtTitle.hasFocus()) ? mEtTitle : mEtContent;
                 // Update UI in response to change in isEditing state
                 if (isEditing) {
@@ -220,10 +223,17 @@ public class NoteActivity extends AppCompatActivity {
      *
      * @param view
      */
-    private void showSoftKeyboard(View view) {
+    private void showSoftKeyboard(final View view) {
         if (!view.hasFocus() && view.requestFocus()) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+            final InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            // Show keyboard by posting a Runnable as per: https://stackoverflow.com/a/27540921
+            // to sidestep keyboard not showing when Activity is launched to edit a new Note
+            view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+                }
+            }, 100);
         }
     }
 
