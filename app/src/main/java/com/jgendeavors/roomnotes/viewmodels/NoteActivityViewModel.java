@@ -44,6 +44,12 @@ public class NoteActivityViewModel extends AndroidViewModel {
     public void deleteNote() { mRepository.delete(mNote.getValue()); }
     public LiveData<Boolean> getIsEditing() { return mIsEditing; }
     public void setIsEditing(boolean value) { mIsEditing.setValue(value); }
+    public void toggleFavorite() {
+        Note note = mNote.getValue();
+        if (note == null) return;
+        note.setIsFavorited(!note.getIsFavorited());
+        mRepository.update(note);
+    }
 
     /**
      * Inserts or updates a Note in the database, via the Repository.

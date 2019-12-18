@@ -50,4 +50,5 @@ public class Note {
 
     // Setters
     public void setId(int id) { mId = id; }
+    public void setIsFavorited(boolean value) { mIsFavorited = value; }
 }

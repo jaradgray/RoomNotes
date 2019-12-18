@@ -170,6 +170,24 @@ public class NoteActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Called after the options menu has been inflated.
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // set favorite icon based on Note.isFavorited
+        MenuItem favItem = menu.findItem(R.id.menu_item_favorite_note);
+        Note note = mViewModel.getNote().getValue();
+        if (favItem != null && note != null && note.getIsFavorited()) {
+            favItem.setIcon(R.drawable.ic_favorite_filled);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -181,6 +199,8 @@ public class NoteActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_item_favorite_note:
                 // TODO implement this
+                mViewModel.toggleFavorite();
+                invalidateOptionsMenu();
                 return true;
             case R.id.menu_item_delete_note:
                 deleteNote();
