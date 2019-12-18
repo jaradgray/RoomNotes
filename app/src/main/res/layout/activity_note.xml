@@ -13,21 +13,27 @@
         android:id="@+id/activity_note_et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_large"
         android:hint="Title"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textAppearance="@style/Text.Large.Bold"
+        android:background="@android:color/transparent" />
 
     <EditText
         android:id="@+id/activity_note_et_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Note"
-        android:inputType="textMultiLine"/>
+        android:inputType="textMultiLine"
+        android:textAppearance="@style/Text"
+        android:background="@android:color/transparent" />
 
     <TextView
         android:id="@+id/activity_note_tv_charactercount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tv_charactercount"
+        android:textAppearance="@style/Text.Small.Disabled"
         android:textAlignment="viewEnd" />
 
     <TextView
@@ -35,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tv_date"
+        android:textAppearance="@style/Text.Small.Disabled"
         android:textAlignment="viewEnd" />
 
 </LinearLayout>

@@ -4,7 +4,28 @@
 <!--    <color name="colorPrimaryDark">#00574B</color>-->
 <!--    <color name="colorAccent">#D81B60</color>-->
 
-    <color name="colorPrimary">#121212</color>
-    <color name="colorPrimaryDark">#121212</color>
+    <color name="colorPrimary">@color/background</color>
+    <color name="colorPrimaryDark">@color/background</color>
     <color name="colorAccent">#2196F3</color>
+
+    <color name="background">#121212</color>
+    <color name="surface_1dp">#1e1e1e</color>
+    <color name="surface_4dp">#272727</color>
+<!--    <color name="primary">#8e60dd</color>-->
+<!--    <color name="secondary">#deffffff</color>-->
+
+    <color name="on_background_high_emphasis">#deffffff</color>
+    <color name="on_background_medium_emphasis">#99ffffff</color>
+    <color name="on_background_disabled">#61ffffff</color>
+
+    <color name="on_surface_high_emphasis">#deffffff</color>
+    <color name="on_surface_medium_emphasis">#99ffffff</color>
+    <color name="on_surface_disabled">#61ffffff</color>
+
+    <!--    <color name="on_primary">@color/white</color>-->
+    <!--    <color name="on_secondary">@color/black_87</color>-->
+
+
+    <!-- Colors referenced by styles -->
+    <color name="cardview_background">@color/surface_1dp</color>
 </resources>

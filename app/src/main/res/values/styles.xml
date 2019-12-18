@@ -13,6 +13,41 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowBackground">@color/background</item>
+
+    </style>
+
+    <!-- CardView style -->
+    <style name="AppTheme.CardView" parent="CardView">
+        <item name="cardBackgroundColor">@color/cardview_background</item>
+    </style>
+
+
+    <!-- TextAppearance -->
+    <!-- Normal -->
+    <style name="Text" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/on_background_high_emphasis</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+    <style name="Text.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Small -->
+    <style name="Text.Small">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+    <style name="Text.Small.Disabled">
+        <item name="android:textColor">@color/on_background_disabled</item>
+    </style>
+
+    <!-- Large -->
+    <style name="Text.Large">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+    <style name="Text.Large.Bold">
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>
