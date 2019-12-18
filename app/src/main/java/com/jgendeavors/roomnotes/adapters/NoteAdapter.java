@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jgendeavors.roomnotes.R;
@@ -25,6 +26,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
      */
     public class NoteViewHolder extends RecyclerView.ViewHolder {
         // TODO adjust instance variables as item_note.xml changes
+        public ImageView ivFavorited;
         public TextView tvTitle;
         public TextView tvContent;
         public TextView tvDate;
@@ -33,6 +35,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             super(itemView);
 
             // get references to Views in layout
+            ivFavorited = itemView.findViewById(R.id.item_note_iv_favorited);
             tvTitle = itemView.findViewById(R.id.item_note_tv_title);
             tvContent = itemView.findViewById(R.id.item_note_tv_content);
             tvDate = itemView.findViewById(R.id.item_note_tv_date);
@@ -107,6 +110,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         String dateText = context.getString(R.string.note_adapter_date_format,
                 dateLastModified, dateCreated);
         holder.tvDate.setText(dateText);
+
+        // set ivFavorited's visibility based on note.getIsFavorited
+        int visibility = (note.getIsFavorited()) ? View.VISIBLE : View.GONE;
+        holder.ivFavorited.setVisibility(visibility);
     }
 
     @Override
