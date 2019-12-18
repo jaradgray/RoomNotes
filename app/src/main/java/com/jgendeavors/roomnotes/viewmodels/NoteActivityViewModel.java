@@ -65,7 +65,8 @@ public class NoteActivityViewModel extends AndroidViewModel {
         if (mNote.getValue() == null) {
             // save new Note
             note = new Note(title, content, currentTime, currentTime, category, isFavorited);
-            mRepository.insert(note);
+            int id = (int)mRepository.insert(note);
+            note.setId(id);
         } else {
             // save existing Note if its data has changed
             Note oldNote = mNote.getValue();
