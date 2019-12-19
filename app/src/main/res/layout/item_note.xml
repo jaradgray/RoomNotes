@@ -38,7 +38,6 @@
             android:text="tv_content"
             style="@style/Text.Body.Cardview"
             android:lines="4"
-            android:maxLines="4"
             android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
             android:ellipsize="end"
             android:layout_below="@id/item_note_tv_title"/>

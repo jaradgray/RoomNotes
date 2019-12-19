@@ -100,7 +100,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note note = mNotes.get(position);
 
-        holder.tvTitle.setText(note.getTitle());
+        // Beautify based on if note has a title
+        String title = note.getTitle();
+        if (title.isEmpty()) {
+            holder.tvTitle.setVisibility(View.GONE);
+            holder.tvContent.setLines(4);
+        } else {
+            holder.tvTitle.setVisibility(View.VISIBLE);
+            holder.tvContent.setLines(3);
+            holder.tvTitle.setText(title);
+        }
         holder.tvContent.setText(note.getContent());
         // Set tvDate's text via format String resource and utility method.
         // To do that we need a Context reference, which we can get from any View object
