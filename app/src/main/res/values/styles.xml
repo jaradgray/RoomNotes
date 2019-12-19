@@ -24,38 +24,37 @@
     </style>
 
 
-    <!-- TextAppearance -->
-    <!-- Normal -->
+    <!-- Text -->
+    <!-- The base style all other text styles will extend. Don't use this style directly. -->
     <style name="Text" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/on_background_high_emphasis</item>
+        <item name="android:textColor">@color/on_background_medium_emphasis</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
-    </style>
-    <style name="Text.Bold">
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+
+        <item name="android:textColorHint">@color/on_background_disabled</item>
     </style>
 
-    <!-- Medium - for smaller text for the item_note items -->
-    <style name="Text.Medium">
-        <item name="android:textSize">@dimen/text_size_medium</item>
+    <!-- Text styles for general content -->
+    <style name="Text.Body" />
+    <style name="Text.Title">
+        <item name="android:textColor">@color/on_background_high_emphasis</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
-    <style name="Text.Medium.Bold">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <!-- Small -->
-    <style name="Text.Small">
+    <style name="Text.Metadata">
+        <item name="android:textColor">@color/on_background_disabled</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
-    <style name="Text.Small.Disabled">
-        <item name="android:textColor">@color/on_background_disabled</item>
-    </style>
 
-    <!-- Large -->
-    <style name="Text.Large">
-        <item name="android:textSize">@dimen/text_size_large</item>
+    <!-- Text styles for CardViews -->
+    <style name="Text.Body.Cardview">
+        <item name="android:textSize">@dimen/text_size_normal_cardview</item>
     </style>
-    <style name="Text.Large.Bold">
-        <item name="android:textStyle">bold</item>
+    <style name="Text.Title.Cardview">
+        <item name="android:textSize">@dimen/text_size_large_cardview</item>
+    </style>
+    <style name="Text.Metadata.Cardview">
+        <item name="android:textSize">@dimen/text_size_small_cardview</item>
     </style>
 
 </resources>

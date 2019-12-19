@@ -5,8 +5,14 @@
     <dimen name="margin_large">16dp</dimen>
 
     <!-- Text Size -->
-    <dimen name="text_size_normal">16sp</dimen>
-    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_normal">18sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
+
+    <dimen name="text_size_normal_cardview">16sp</dimen>
+    <dimen name="text_size_small_cardview">12sp</dimen>
+    <dimen name="text_size_large_cardview">17sp</dimen>
+
+    <!-- Line Spacing Multiplier -->
+    <dimen name="line_spacing_multiplier_content">1.1</dimen>
 </resources>

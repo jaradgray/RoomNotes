@@ -16,7 +16,7 @@
         android:layout_marginBottom="@dimen/margin_large"
         android:hint="Title"
         android:inputType="text"
-        android:textAppearance="@style/Text.Large.Bold"
+        style="@style/Text.Title"
         android:background="@android:color/transparent" />
 
     <EditText
@@ -25,15 +25,16 @@
         android:layout_height="wrap_content"
         android:hint="Note"
         android:inputType="textMultiLine"
-        android:textAppearance="@style/Text"
-        android:background="@android:color/transparent" />
+        style="@style/Text.Body"
+        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
+        android:background="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/activity_note_tv_charactercount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tv_charactercount"
-        android:textAppearance="@style/Text.Small.Disabled"
+        style="@style/Text.Metadata"
         android:textAlignment="viewEnd" />
 
     <TextView
@@ -41,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tv_date"
-        android:textAppearance="@style/Text.Small.Disabled"
+        style="@style/Text.Metadata"
         android:textAlignment="viewEnd" />
 
 </LinearLayout>
