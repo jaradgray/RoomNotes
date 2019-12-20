@@ -4,6 +4,8 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_large">16dp</dimen>
 
+    <dimen name="scroll_margin">170dp</dimen>
+
     <!-- Text Size -->
     <dimen name="text_size_normal">18sp</dimen>
     <dimen name="text_size_small">12sp</dimen>

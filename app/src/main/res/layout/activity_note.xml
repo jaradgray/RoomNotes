@@ -49,5 +49,10 @@
             style="@style/Text.Metadata"
             android:textAlignment="viewEnd" />
 
+        <!-- View to add a margin to the bottom of the scroll area -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scroll_margin" />
+
     </LinearLayout>
 </ScrollView>
