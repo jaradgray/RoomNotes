@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_note_root_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp"
-    android:orientation="vertical"
-    tools:context=".NoteActivity">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/activity_note_et_title"
+    <LinearLayout
+        android:id="@+id/activity_note_root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:hint="Title"
-        android:inputType="text"
-        style="@style/Text.Title"
-        android:background="@android:color/transparent" />
+        android:padding="8dp"
+        android:orientation="vertical"
+        tools:context=".NoteActivity">
 
-    <EditText
-        android:id="@+id/activity_note_et_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Note"
-        android:inputType="textMultiLine"
-        style="@style/Text.Body"
-        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
-        android:background="@android:color/transparent"/>
+        <EditText
+            android:id="@+id/activity_note_et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:hint="Title"
+            android:inputType="text"
+            style="@style/Text.Title"
+            android:background="@android:color/transparent" />
 
-    <TextView
-        android:id="@+id/activity_note_tv_charactercount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="tv_charactercount"
-        style="@style/Text.Metadata"
-        android:textAlignment="viewEnd" />
+        <EditText
+            android:id="@+id/activity_note_et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Note"
+            android:inputType="textMultiLine"
+            style="@style/Text.Body"
+            android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
+            android:background="@android:color/transparent"/>
 
-    <TextView
-        android:id="@+id/activity_note_tv_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="tv_date"
-        style="@style/Text.Metadata"
-        android:textAlignment="viewEnd" />
+        <TextView
+            android:id="@+id/activity_note_tv_charactercount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tv_charactercount"
+            style="@style/Text.Metadata"
+            android:textAlignment="viewEnd" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/activity_note_tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tv_date"
+            style="@style/Text.Metadata"
+            android:textAlignment="viewEnd" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
