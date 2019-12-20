@@ -1,10 +1,17 @@
-Room Notes is an android application for storing notes, using Android's recommended app architecture. Notes are displayed in MainActivity (via RecyclerView) and stored on the device's internal storage in an SQLite database (via Room).
+# Room Notes
 
-Featured Android classes:
-- LiveData
-- ViewModel
-- RoomDatabase
-- RecyclerView
+Room Notes is a dark-themed notes app for Android. It uses
+[AndroidX](https://developer.android.com/jetpack/androidx/)
+libraries and
+[Android Architecture components](https://developer.android.com/topic/libraries/architecture/)
+to implement the
+[recommended app architecture](https://developer.android.com/jetpack/docs/guide#recommended-app-arch).
 
-- Repository
-- Data Access Object (DAO)
+## Featured Components
+
+Room Notes features the following Android components:
+
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+- [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+- [Room](https://developer.android.com/training/data-storage/room/index.html) persistence library
+- [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview#structure)
