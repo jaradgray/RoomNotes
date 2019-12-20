@@ -8,7 +8,8 @@
 <!--        <item name="colorAccent">@color/colorAccent</item>-->
 <!--    </style>-->
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <!-- base set of styles that apply to all versions -->
+    <style name="BaseAppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -17,6 +18,9 @@
         <item name="android:windowBackground">@color/background</item>
 
     </style>
+
+    <!-- declare the theme name that's actually applied in the manifest file -->
+    <style name="AppTheme" parent="BaseAppTheme" />
 
     <!-- CardView style -->
     <style name="AppTheme.CardView" parent="CardView">
