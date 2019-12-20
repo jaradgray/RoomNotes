@@ -15,6 +15,9 @@
     <dimen name="text_size_small_cardview">12sp</dimen>
     <dimen name="text_size_large_cardview">17sp</dimen>
 
+    <!-- size of the favorite iton on note items in the RecyclerView -->
+    <dimen name="item_note_fav_icon_size">18sp</dimen>
+
     <!-- Line Spacing Multiplier -->
     <dimen name="line_spacing_multiplier_content">1.1</dimen>
 </resources>
