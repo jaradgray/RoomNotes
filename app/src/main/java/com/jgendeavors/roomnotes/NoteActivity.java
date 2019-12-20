@@ -101,7 +101,7 @@ public class NoteActivity extends AppCompatActivity {
 
         // Set ActionBar stuff
         final ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_close);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_left);
         setTitle("");
 
         // Create the ViewModel that will drive this Activity's UI
