@@ -17,6 +17,7 @@
             android:id="@+id/item_note_iv_favorited"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
             android:src="@drawable/ic_favorite_filled"
             android:tint="@color/colorAccent"/>
 
