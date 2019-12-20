@@ -6,7 +6,7 @@
 
     <color name="colorPrimary">@color/background</color>
     <color name="colorPrimaryDark">@color/background</color>
-    <color name="colorAccent">#2196F3</color>
+    <color name="colorAccent">#8e60dd</color>
 
     <color name="background">#121212</color>
     <color name="surface_1dp">#1e1e1e</color>
