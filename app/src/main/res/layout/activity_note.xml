@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".NoteActivity">
 
     <LinearLayout
         android:id="@+id/activity_note_root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:orientation="vertical"
-        tools:context=".NoteActivity">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/activity_note_et_title"
