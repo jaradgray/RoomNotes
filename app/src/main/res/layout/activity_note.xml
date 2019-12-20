@@ -28,6 +28,7 @@
             android:id="@+id/activity_note_et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large"
             android:hint="Note"
             android:inputType="textMultiLine"
             style="@style/Text.Body"
