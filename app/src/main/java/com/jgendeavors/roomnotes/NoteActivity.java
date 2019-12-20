@@ -134,10 +134,12 @@ public class NoteActivity extends AppCompatActivity {
                     actionBar.setDisplayHomeAsUpEnabled(false);
                     mOptionsMenuResourceId = R.menu.activity_note_editing_menu;
                     showSoftKeyboard(focusedView);
+                    mEtTitle.setHint(R.string.activity_note_title_hint_editing);
                 } else {
                     actionBar.setDisplayHomeAsUpEnabled(true);
                     mOptionsMenuResourceId = R.menu.activity_note_normal_menu;
                     hideSoftKeyboard(focusedView);
+                    mEtTitle.setHint(R.string.activity_note_title_hint_normal);
                 }
                 invalidateOptionsMenu();
             }

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
-            android:hint="Title"
+            android:hint="@string/activity_note_title_hint_normal"
             android:inputType="text"
             style="@style/Text.Title"
             android:background="@android:color/transparent" />
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
-            android:hint="Note"
+            android:hint="@string/activity_note_content_hint"
             android:inputType="textMultiLine"
             style="@style/Text.Body"
             android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
