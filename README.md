@@ -7,6 +7,8 @@ libraries and
 to implement the
 [recommended app architecture](https://developer.android.com/jetpack/docs/guide#recommended-app-arch).
 
+[![Master-Detail Screenshot](docs/assets/master-detail.png)](docs/assets/master-detail.png)
+
 ## Featured Components
 
 Room Notes features the following Android components:
