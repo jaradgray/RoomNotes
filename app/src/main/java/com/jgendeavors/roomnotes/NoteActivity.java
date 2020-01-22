@@ -240,7 +240,7 @@ public class NoteActivity extends AppCompatActivity {
 
         // save the Note we're dealing with via the ViewModel
         String category = ""; // TODO get category
-        boolean isFavorited = false; // TODO get isFavorited
+        boolean isFavorited = mViewModel.getNote().getValue() != null && mViewModel.getNote().getValue().getIsFavorited();
 
         mViewModel.saveNote(title, content, category, isFavorited);
 
