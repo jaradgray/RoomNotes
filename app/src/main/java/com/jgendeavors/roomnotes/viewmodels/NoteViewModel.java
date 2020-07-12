@@ -22,7 +22,7 @@ public class NoteViewModel extends AndroidViewModel {
     private NoteRepository mRepository;
     private LiveData<List<Note>> mAllNotes; // all Notes in the database
     private MutableLiveData<Boolean> mIsEditing;
-    private MutableLiveData<Note> mNote;    // the Note that drives NoteActivity's UI. This ViewModel doesn't manipulate
+    private MutableLiveData<Note> mNote;    // the Note that drives NoteDetailFragment's UI. This ViewModel doesn't manipulate
                                             // database columns directly (if that's even possible). We keep a local Note
                                             // instance and perform database operations using the entire Note instance.
 
