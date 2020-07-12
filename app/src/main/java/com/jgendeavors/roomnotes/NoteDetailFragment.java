@@ -127,8 +127,8 @@ public class NoteDetailFragment extends Fragment {
         } else {
             // reading an existing Note
             mViewModel.setIsEditing(false);
-            mViewModel.setNoteById(noteId);
         }
+        mViewModel.setNoteById(noteId);
 
         // observe changes to the isEditing state
         mViewModel.getIsEditing().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
