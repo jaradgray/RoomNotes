@@ -2,26 +2,11 @@ package com.jgendeavors.roomnotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.jgendeavors.roomnotes.adapters.NoteAdapter;
-import com.jgendeavors.roomnotes.entities.Note;
-import com.jgendeavors.roomnotes.viewmodels.NoteActivityViewModel;
-import com.jgendeavors.roomnotes.viewmodels.NoteViewModel;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     @Override
