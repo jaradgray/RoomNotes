@@ -174,6 +174,10 @@ public class NoteDetailFragment extends Fragment {
                 }
             }
         });
+
+        // Make the ActionBar display no title when we're viewing this Fragment.
+        //  This seems hacky, but I couldn't find a simple solution to hide the title for specific Navigation destinations
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().setTitle(R.string.fragment_note_detail_label);
     }
 
 

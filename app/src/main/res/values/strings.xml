@@ -11,7 +11,12 @@
     <!-- NoteAdapter -->
     <string name="note_adapter_date_format">Modified: %s / Created: %s</string>
 
-    <!-- NoteActivity -->
+    <!-- NotesListFragment -->
+    <string name="fragment_notes_list_label">Notes</string>
+
+    <!-- NoteDetailFragment -->
+    <string name="fragment_note_detail_label">""</string>
+
     <string name="fragment_note_detail_character_count_format">%d characters</string>
     <string name="fragment_note_detail_date_modified_format">Last modified: %s</string>
 
@@ -21,10 +26,10 @@
     <string name="fragment_note_detail_content_hint">Note</string>
 
     <!-- Menus -->
-    <!-- NoteActivity - Normal -->
+    <!-- NoteDetailFragment - Normal -->
     <string name="menu_item_edit_note_title">Edit</string>
     <string name="menu_item_favorite_note_title">Favorite</string>
     <string name="menu_item_delete_note_title">Delete</string>
-    <!-- NoteActivity - Editing -->
+    <!-- NoteDetailFragment - Editing -->
     <string name="menu_item_save_note_title">Save</string>
 </resources>

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/notesListFragment"
         android:name="com.jgendeavors.roomnotes.NotesListFragment"
-        android:label="fragment_notes_list"
+        android:label="@string/fragment_notes_list_label"
         tools:layout="@layout/fragment_notes_list" >
         <action
             android:id="@+id/action_notesListFragment_to_noteDetailFragment"
@@ -18,6 +18,6 @@
     <fragment
         android:id="@+id/noteDetailFragment"
         android:name="com.jgendeavors.roomnotes.NoteDetailFragment"
-        android:label="fragment_note_detail"
+        android:label="@string/fragment_note_detail_label"
         tools:layout="@layout/fragment_note_detail" />
 </navigation>
