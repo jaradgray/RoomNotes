@@ -1,7 +1,6 @@
 package com.jgendeavors.roomnotes.viewmodels;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import com.jgendeavors.roomnotes.entities.Note;
 import com.jgendeavors.roomnotes.repositories.NoteRepository;
@@ -15,10 +14,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 /**
- * The NoteActivityViewModel class holds all Note-related UI data for our app components to observe,
+ * The NoteViewModel class holds all Note-related UI data for our app components to observe,
  * and exposes Note manipulation methods for components.
  */
-public class NoteActivityViewModel extends AndroidViewModel {
+public class NoteViewModel extends AndroidViewModel {
 
     private NoteRepository mRepository;
     private LiveData<List<Note>> mAllNotes; // all Notes in the database
@@ -27,7 +26,7 @@ public class NoteActivityViewModel extends AndroidViewModel {
                                             // database columns directly (if that's even possible). We keep a local Note
                                             // instance and perform database operations using the entire Note instance.
 
-    public NoteActivityViewModel(@NonNull Application application) {
+    public NoteViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = new NoteRepository(application);

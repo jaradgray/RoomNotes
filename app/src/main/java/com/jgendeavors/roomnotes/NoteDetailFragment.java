@@ -17,18 +17,16 @@ import android.widget.Toast;
 
 import com.jgendeavors.roomnotes.entities.Note;
 import com.jgendeavors.roomnotes.util.Util;
-import com.jgendeavors.roomnotes.viewmodels.NoteActivityViewModel;
+import com.jgendeavors.roomnotes.viewmodels.NoteViewModel;
 
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 public class NoteDetailFragment extends Fragment {
@@ -42,7 +40,7 @@ public class NoteDetailFragment extends Fragment {
     private TextView mTvCharacterCount;
     private TextView mTvDate;
 
-    private NoteActivityViewModel mViewModel;
+    private NoteViewModel mViewModel;
     private int mOptionsMenuResourceId;
 
 
@@ -118,7 +116,7 @@ public class NoteDetailFragment extends Fragment {
 //        setTitle("");
 
         // Request a ViewModel from the Android system
-        mViewModel = ViewModelProviders.of(requireActivity()).get(NoteActivityViewModel.class);
+        mViewModel = ViewModelProviders.of(requireActivity()).get(NoteViewModel.class);
 
         // set ViewModel state based on if we're editing a NEW Note, or reading an EXISTING Note
         int noteId = getArguments().getInt(ARG_KEY_ID, ARG_VALUE_NO_ID);
