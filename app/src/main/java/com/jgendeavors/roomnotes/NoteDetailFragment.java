@@ -24,6 +24,7 @@ import java.util.Calendar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -140,10 +141,12 @@ public class NoteDetailFragment extends Fragment {
 
                 // Update UI in response to change in isEditing state
                 if (isEditing) {
+                    ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     mOptionsMenuResourceId = R.menu.fragment_note_detail_editing_menu;
                     showSoftKeyboard(focusedView);
                     mEtTitle.setHint(R.string.fragment_note_detail_title_hint_editing);
                 } else {
+                    ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     mOptionsMenuResourceId = R.menu.fragment_note_detail_normal_menu;
                     hideSoftKeyboard(focusedView);
                     mEtTitle.setHint(R.string.fragment_note_detail_title_hint_normal);
