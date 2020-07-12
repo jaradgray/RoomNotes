@@ -3,7 +3,6 @@
 
     <!-- Toasts -->
     <string name="toast_note_discarded">Nothing to save. Note discarded.</string>
-    <string name="toast_error_note_id_not_set">Error: Note ID not set</string>
 
     <!-- General Format Strings -->
     <string name="timestamp_day_format">%s %d, %d</string>
@@ -12,20 +11,25 @@
     <!-- NoteAdapter -->
     <string name="note_adapter_date_format">Modified: %s / Created: %s</string>
 
-    <!-- NoteActivity -->
-    <string name="activity_note_character_count_format">%d characters</string>
-    <string name="activity_note_date_modified_format">Last modified: %s</string>
+    <!-- NotesListFragment -->
+    <string name="fragment_notes_list_label">Notes</string>
 
-    <string name="activity_note_title_hint_normal">No title</string>
-    <string name="activity_note_title_hint_editing">Title</string>
+    <!-- NoteDetailFragment -->
+    <string name="fragment_note_detail_label">""</string>
 
-    <string name="activity_note_content_hint">Note</string>
+    <string name="fragment_note_detail_character_count_format">%d characters</string>
+    <string name="fragment_note_detail_date_modified_format">Last modified: %s</string>
+
+    <string name="fragment_note_detail_title_hint_normal">No title</string>
+    <string name="fragment_note_detail_title_hint_editing">Title</string>
+
+    <string name="fragment_note_detail_content_hint">Note</string>
 
     <!-- Menus -->
-    <!-- NoteActivity - Normal -->
+    <!-- NoteDetailFragment - Normal -->
     <string name="menu_item_edit_note_title">Edit</string>
     <string name="menu_item_favorite_note_title">Favorite</string>
     <string name="menu_item_delete_note_title">Delete</string>
-    <!-- NoteActivity - Editing -->
+    <!-- NoteDetailFragment - Editing -->
     <string name="menu_item_save_note_title">Save</string>
 </resources>
