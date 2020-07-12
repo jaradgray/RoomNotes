@@ -4,39 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".NoteActivity">
+    android:fillViewport="true">
 
     <LinearLayout
-        android:id="@+id/activity_note_root_layout"
+        android:id="@+id/fragment_note_detail_root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/activity_note_et_title"
+            android:id="@+id/fragment_note_detail_et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
-            android:hint="@string/activity_note_title_hint_normal"
+            android:hint="@string/fragment_note_detail_title_hint_normal"
             android:inputType="text"
             style="@style/Text.Title"
             android:background="@android:color/transparent" />
 
         <EditText
-            android:id="@+id/activity_note_et_content"
+            android:id="@+id/fragment_note_detail_et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
-            android:hint="@string/activity_note_content_hint"
+            android:hint="@string/fragment_note_detail_content_hint"
             android:inputType="textMultiLine"
             style="@style/Text.Body"
             android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
             android:background="@android:color/transparent"/>
 
         <TextView
-            android:id="@+id/activity_note_tv_charactercount"
+            android:id="@+id/fragment_note_detail_tv_charactercount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="tv_charactercount"
@@ -44,7 +43,7 @@
             android:textAlignment="viewEnd" />
 
         <TextView
-            android:id="@+id/activity_note_tv_date"
+            android:id="@+id/fragment_note_detail_tv_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="tv_date"

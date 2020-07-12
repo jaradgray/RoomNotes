@@ -9,7 +9,7 @@
 <!--    </style>-->
 
     <!-- base set of styles that apply to all versions -->
-    <style name="BaseAppTheme" parent="Theme.AppCompat">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
