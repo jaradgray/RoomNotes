@@ -28,6 +28,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import io.noties.markwon.Markwon;
+import io.noties.markwon.editor.MarkwonEditor;
+import io.noties.markwon.editor.MarkwonEditorTextWatcher;
 
 public class NoteDetailFragment extends Fragment {
     // Navigation args
@@ -67,6 +70,11 @@ public class NoteDetailFragment extends Fragment {
         mEtContent = view.findViewById(R.id.fragment_note_detail_et_content);
         mTvCharacterCount = view.findViewById(R.id.fragment_note_detail_tv_charactercount);
         mTvDate = view.findViewById(R.id.fragment_note_detail_tv_date);
+
+        // Make mEtContent a MarkwonEditor
+        final Markwon markwon = Markwon.create(requireActivity());
+        final MarkwonEditor editor = MarkwonEditor.create(markwon);
+        mEtContent.addTextChangedListener(MarkwonEditorTextWatcher.withProcess(editor));
 
         // update mTvCharacterCount's text when mEtContent's text changes
         mEtContent.addTextChangedListener(new TextWatcher() {
