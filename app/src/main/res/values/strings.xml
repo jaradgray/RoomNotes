@@ -27,7 +27,7 @@
 
     <!-- Menus -->
     <!-- NoteDetailFragment - Normal -->
-    <string name="menu_item_edit_note_title">Edit</string>
+    <string name="menu_item_toggle_view_title">Toggle View</string>
     <string name="menu_item_favorite_note_title">Favorite</string>
     <string name="menu_item_delete_note_title">Delete</string>
     <!-- NoteDetailFragment - Editing -->

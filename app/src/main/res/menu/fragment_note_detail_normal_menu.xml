@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_item_edit_note"
-        android:title="@string/menu_item_edit_note_title"
+        android:id="@+id/menu_item_toggle_view"
+        android:icon="@drawable/ic_view_markdown"
+        android:title="@string/menu_item_toggle_view_title"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_item_favorite_note"

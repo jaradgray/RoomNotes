@@ -23,6 +23,19 @@
             style="@style/Text.Title"
             android:background="@android:color/transparent" />
 
+        <!-- Content :: rendered markdown -->
+        <TextView
+            android:id="@+id/fragment_note_detail_tv_rendered_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:hint="@string/fragment_note_detail_content_hint"
+            style="@style/Text.Body"
+            android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
+            android:background="@android:color/transparent"
+            android:visibility="gone"/>
+
+        <!-- Content :: editable -->
         <EditText
             android:id="@+id/fragment_note_detail_et_content"
             android:layout_width="match_parent"

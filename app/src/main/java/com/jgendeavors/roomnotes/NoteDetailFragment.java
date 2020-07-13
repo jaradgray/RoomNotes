@@ -39,6 +39,7 @@ public class NoteDetailFragment extends Fragment {
 
     // Instance variables
     private EditText mEtTitle;
+    private TextView mTvRenderedContent;
     private EditText mEtContent;
     private TextView mTvCharacterCount;
     private TextView mTvDate;
@@ -67,6 +68,7 @@ public class NoteDetailFragment extends Fragment {
 
         // Get references to widgets
         mEtTitle = view.findViewById(R.id.fragment_note_detail_et_title);
+        mTvRenderedContent = view.findViewById(R.id.fragment_note_detail_tv_rendered_content);
         mEtContent = view.findViewById(R.id.fragment_note_detail_et_content);
         mTvCharacterCount = view.findViewById(R.id.fragment_note_detail_tv_charactercount);
         mTvDate = view.findViewById(R.id.fragment_note_detail_tv_date);
@@ -173,6 +175,8 @@ public class NoteDetailFragment extends Fragment {
                     // set View data to match Note data
                     mEtTitle.setText(note.getTitle());
                     mEtContent.setText(note.getContent());
+                    // TODO render markdown to TextViews
+                    markwon.setMarkdown(mTvRenderedContent, note.getContent());
                     String dateLastModifiedText = getString(R.string.fragment_note_detail_date_modified_format,
                             Util.getTimeAsString(requireActivity(), note.getDateModified(), Calendar.LONG));
                     mTvDate.setVisibility(View.VISIBLE);
@@ -209,6 +213,13 @@ public class NoteDetailFragment extends Fragment {
         if (favItem != null && note != null && note.getIsFavorited()) {
             favItem.setIcon(R.drawable.ic_favorite_filled);
         }
+        // Set "toggle view" icon based on if plaintext or markdown is currently displayed
+        boolean viewingPlaintext = (mEtContent.getVisibility() == View.VISIBLE);
+        int icViewResId = viewingPlaintext ? R.drawable.ic_view_markdown : R.drawable.ic_view_plaintext;
+        MenuItem viewItem = menu.findItem(R.id.menu_item_toggle_view);
+        if (favItem != null) {
+            viewItem.setIcon(icViewResId);
+        }
     }
 
     @Override
@@ -218,8 +229,13 @@ public class NoteDetailFragment extends Fragment {
             case R.id.menu_item_save_note:
                 saveNote();
                 return true;
-            case R.id.menu_item_edit_note:
-                mViewModel.setIsEditing(true);
+            case R.id.menu_item_toggle_view:
+                // Update View visibilities based on if we're currently viewing plaintext or markdown
+                boolean viewingPlaintext = (mEtContent.getVisibility() == View.VISIBLE);
+                if (viewingPlaintext) showRenderedMarkdown();
+                else showPlaintext();
+                // We update the menu item icon in onPrepareOptionsMenu(), so we need to invalidate the options menu
+                requireActivity().invalidateOptionsMenu();
                 return true;
             case R.id.menu_item_favorite_note:
                 mViewModel.toggleFavorite();
@@ -308,5 +324,15 @@ public class NoteDetailFragment extends Fragment {
         InputMethodManager imm = (InputMethodManager)requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 //        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0); // idk why this works in all cases but the commented-out code doesn't...
+    }
+
+    private void showPlaintext() {
+        mTvRenderedContent.setVisibility(View.GONE);
+        mEtContent.setVisibility(View.VISIBLE);
+    }
+
+    private void showRenderedMarkdown() {
+        mEtContent.setVisibility(View.GONE);
+        mTvRenderedContent.setVisibility(View.VISIBLE);
     }
 }
