@@ -17,6 +17,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import io.noties.markwon.Markwon;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
@@ -41,7 +42,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             tvDate = itemView.findViewById(R.id.item_note_tv_date);
 
             // Capture clicks on this item
-            itemView.setOnClickListener(new View.OnClickListener() {
+            // create the OnClickListener that will handle clicks
+            View.OnClickListener itemClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (mListener != null) {
@@ -50,7 +52,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                         mListener.onItemClicked(mNotes.get(position));
                     }
                 }
-            });
+            };
+            itemView.setOnClickListener(itemClickListener);
+            // rendering markdown in TextViews seemed to mess up click behavior, so listen for clicks on them too
+            tvTitle.setOnClickListener(itemClickListener);
+            tvContent.setOnClickListener(itemClickListener);
         }
     }
 
@@ -100,6 +106,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note note = mNotes.get(position);
 
+        // The following code needs a Context reference, which we can get from any View object
+        Context context = holder.tvTitle.getContext();
+
+        // Create a Markwon reference to render markdown to TextViews
+        // TODO should we make this an instance variable instead, so we're not instantiating it every time this method is called ?
+        final Markwon markwon = Markwon.create(context);
+
         // Beautify based on if note has a title
         String title = note.getTitle();
         if (title.isEmpty()) {
@@ -108,12 +121,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         } else {
             holder.tvTitle.setVisibility(View.VISIBLE);
             holder.tvContent.setLines(3);
-            holder.tvTitle.setText(title);
+            markwon.setMarkdown(holder.tvTitle, title);
         }
-        holder.tvContent.setText(note.getContent());
+        markwon.setMarkdown(holder.tvContent, note.getContent());
+
         // Set tvDate's text via format String resource and utility method.
-        // To do that we need a Context reference, which we can get from any View object
-        Context context = holder.tvDate.getContext();
         String dateLastModified = Util.getTimeAsString(context, note.getDateModified(), Calendar.SHORT);
         String dateCreated = Util.getTimeAsString(context, note.getDateCreated(), Calendar.SHORT);
         String dateText = context.getString(R.string.note_adapter_date_format,
