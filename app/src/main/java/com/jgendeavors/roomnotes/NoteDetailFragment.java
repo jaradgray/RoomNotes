@@ -38,6 +38,7 @@ public class NoteDetailFragment extends Fragment {
     public static final int ARG_VALUE_NO_ID = -1;
 
     // Instance variables
+    private TextView mTvRenderedTitle;
     private EditText mEtTitle;
     private TextView mTvRenderedContent;
     private EditText mEtContent;
@@ -67,15 +68,17 @@ public class NoteDetailFragment extends Fragment {
         // put any usages of findViewById() here
 
         // Get references to widgets
+        mTvRenderedTitle = view.findViewById(R.id.fragment_note_detail_tv_rendered_title);
         mEtTitle = view.findViewById(R.id.fragment_note_detail_et_title);
         mTvRenderedContent = view.findViewById(R.id.fragment_note_detail_tv_rendered_content);
         mEtContent = view.findViewById(R.id.fragment_note_detail_et_content);
         mTvCharacterCount = view.findViewById(R.id.fragment_note_detail_tv_charactercount);
         mTvDate = view.findViewById(R.id.fragment_note_detail_tv_date);
 
-        // Make mEtContent a MarkwonEditor
+        // Make EditTexts be MarkwonEditors
         final Markwon markwon = Markwon.create(requireActivity());
         final MarkwonEditor editor = MarkwonEditor.create(markwon);
+        mEtTitle.addTextChangedListener(MarkwonEditorTextWatcher.withProcess(editor));
         mEtContent.addTextChangedListener(MarkwonEditorTextWatcher.withProcess(editor));
 
         // update mTvCharacterCount's text when mEtContent's text changes
@@ -172,11 +175,14 @@ public class NoteDetailFragment extends Fragment {
                     mTvCharacterCount.setText(getString(R.string.fragment_note_detail_character_count_format, 0));
                     mTvDate.setVisibility(View.GONE);
                 } else {
-                    // set View data to match Note data
+                    // Set View data to match Note data
+                    // EditTexts get plaintext
                     mEtTitle.setText(note.getTitle());
                     mEtContent.setText(note.getContent());
-                    // TODO render markdown to TextViews
+                    // TextViews get rendered markdown
+                    markwon.setMarkdown(mTvRenderedTitle, note.getTitle());
                     markwon.setMarkdown(mTvRenderedContent, note.getContent());
+                    // date
                     String dateLastModifiedText = getString(R.string.fragment_note_detail_date_modified_format,
                             Util.getTimeAsString(requireActivity(), note.getDateModified(), Calendar.LONG));
                     mTvDate.setVisibility(View.VISIBLE);
@@ -327,12 +333,16 @@ public class NoteDetailFragment extends Fragment {
     }
 
     private void showPlaintext() {
+        mTvRenderedTitle.setVisibility(View.GONE);
         mTvRenderedContent.setVisibility(View.GONE);
+        mEtTitle.setVisibility(View.VISIBLE);
         mEtContent.setVisibility(View.VISIBLE);
     }
 
     private void showRenderedMarkdown() {
+        mEtTitle.setVisibility(View.GONE);
         mEtContent.setVisibility(View.GONE);
+        mTvRenderedTitle.setVisibility(View.VISIBLE);
         mTvRenderedContent.setVisibility(View.VISIBLE);
     }
 }
