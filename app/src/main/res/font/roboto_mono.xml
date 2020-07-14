@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Note: use the app namespace instead of android to use the support library, as per:
+    https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml#using-support-lib
+-->
 <font-family xmlns:app="http://schemas.android.com/apk/res-auto">
     <font
         app:font="@font/roboto_mono_regular"
