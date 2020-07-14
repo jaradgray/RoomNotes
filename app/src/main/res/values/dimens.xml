@@ -15,9 +15,9 @@
     <dimen name="text_size_small_markdown">14sp</dimen>
     <dimen name="text_size_large_markdown">20sp</dimen>
 
-    <dimen name="text_size_normal_cardview">14sp</dimen>
-    <dimen name="text_size_small_cardview">12sp</dimen>
-    <dimen name="text_size_large_cardview">16sp</dimen>
+    <dimen name="text_size_normal_cardview">13sp</dimen>
+    <dimen name="text_size_small_cardview">11sp</dimen>
+    <dimen name="text_size_large_cardview">17sp</dimen>
 
     <!-- size of the favorite iton on note items in the RecyclerView -->
     <dimen name="item_note_fav_icon_size">18sp</dimen>
