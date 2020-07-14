@@ -16,14 +16,14 @@
         android:paddingEnd="16dp"
         android:orientation="vertical">
 
-        <!-- Title :: editable -->
+        <!-- Title :: rendered markdown -->
         <TextView
             android:id="@+id/fragment_note_detail_tv_rendered_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
             android:hint="@string/fragment_note_detail_title_hint_normal"
-            style="@style/Text.Title"
+            style="@style/Text.Markdown.Title"
             android:background="@android:color/transparent"
             android:visibility="gone"/>
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
             android:hint="@string/fragment_note_detail_content_hint"
-            style="@style/Text.Body"
+            style="@style/Text.Markdown.Body"
             android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
             android:background="@android:color/transparent"
             android:visibility="gone"/>
