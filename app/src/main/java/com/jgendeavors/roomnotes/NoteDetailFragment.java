@@ -171,6 +171,8 @@ public class NoteDetailFragment extends Fragment {
             @Override
             public void onChanged(Note note) {
                 if (note == null) {
+                    // set ViewModel's RenderMode to Plaintext
+                    mViewModel.setRenderMode(NoteViewModel.RenderMode.Plaintext);
                     // set View data to indicate no Note
                     mTvCharacterCount.setText(getString(R.string.fragment_note_detail_character_count_format, 0));
                     mTvDate.setVisibility(View.GONE);
