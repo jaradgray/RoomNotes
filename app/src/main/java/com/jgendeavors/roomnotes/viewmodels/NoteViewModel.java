@@ -1,6 +1,8 @@
 package com.jgendeavors.roomnotes.viewmodels;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.jgendeavors.roomnotes.entities.Note;
 import com.jgendeavors.roomnotes.repositories.NoteRepository;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import io.noties.markwon.editor.MarkwonEditorTextWatcher;
 
 /**
  * The NoteViewModel class holds all Note-related UI data for our app components to observe,
@@ -21,12 +24,53 @@ public class NoteViewModel extends AndroidViewModel {
 
     /**
      * Enum for how to render Note data in NoteDetailFragment.
+     *
+     * Note: if values are added, removed, or reordered, be sure to update toInt() and fromInt()
+     * accordingly.
      */
     public enum RenderMode {
         Plaintext,
-        Markdown
+        Markdown;
+
+        /**
+         * Given a RenderMode value, returns the corresponding int value
+         * @param mode
+         * @return
+         */
+        public static int toInt(RenderMode mode) {
+            switch (mode) {
+                case Plaintext:
+                    return 0;
+                case Markdown:
+                    return 1;
+                default:
+                    return -1;
+            }
+        }
+
+        /**
+         * Given an int, returns the corresponding RenderMode value
+         * @param i
+         * @return
+         */
+        public static RenderMode fromInt(int i) {
+            switch (i) {
+                case 0:
+                    return Plaintext;
+                case 1:
+                    return Markdown;
+                default:
+                    return Plaintext;
+            }
+        }
     }
 
+    // Constants
+    public static final String PREFS_NAME = "PREFS_NAME";
+    public static final String PREF_KEY_RENDER_MODE = "PREF_KEY_RENDER_MODE";
+    public static final int PREF_VALUE_DEFAULT_RENDER_MODE_INT = 0;
+
+    // Instance variables
     private NoteRepository mRepository;
     private LiveData<List<Note>> mAllNotes; // all Notes in the database
     private MutableLiveData<Boolean> mIsEditing;
@@ -35,6 +79,9 @@ public class NoteViewModel extends AndroidViewModel {
                                             // instance and perform database operations using the entire Note instance.
     private MutableLiveData<RenderMode> mRenderMode;
 
+    private SharedPreferences mPrefs;
+
+    // Constructor
     public NoteViewModel(@NonNull Application application) {
         super(application);
 
@@ -42,8 +89,10 @@ public class NoteViewModel extends AndroidViewModel {
         mAllNotes = mRepository.getAllNotes();
         mIsEditing = new MutableLiveData<>(false); // TODO initialize this better ???
         mNote = new MutableLiveData<>(null);
-        // TODO initialize mRenderMode from SharedPreferences
-        mRenderMode = new MutableLiveData<>(RenderMode.Plaintext);
+        // Initialize mRenderMode from SharedPreferences
+        mPrefs = application.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int renderModeInt = mPrefs.getInt(PREF_KEY_RENDER_MODE, PREF_VALUE_DEFAULT_RENDER_MODE_INT);
+        mRenderMode = new MutableLiveData<>(RenderMode.fromInt(renderModeInt));
     }
 
     // API Methods this ViewModel exposes
@@ -61,7 +110,11 @@ public class NoteViewModel extends AndroidViewModel {
     public LiveData<Boolean> getIsEditing() { return mIsEditing; }
     public void setIsEditing(boolean value) { mIsEditing.setValue(value); }
     public LiveData<RenderMode> getRenderMode() { return mRenderMode; }
-    public void setRenderMode(RenderMode mode) { mRenderMode.postValue(mode); }
+    public void setRenderMode(RenderMode mode) {
+        mRenderMode.postValue(mode);
+        // Update SharedPreferences
+        mPrefs.edit().putInt(PREF_KEY_RENDER_MODE, RenderMode.toInt(mode)).apply();
+    }
     public void toggleRenderMode() {
         RenderMode mode = mRenderMode.getValue();
         if (mode == null) return;
