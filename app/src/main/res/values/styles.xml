@@ -41,7 +41,7 @@
     <!-- Text styles for general content -->
     <style name="Text.Body" />
     <style name="Text.Body.Monospace">
-        <item name="android:fontFamily">monospace</item>
+        <item name="android:fontFamily">@font/roboto_mono</item>
     </style>
     <style name="Text.Title">
         <item name="android:textColor">@color/on_background_high_emphasis</item>
@@ -49,7 +49,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
     <style name="Text.Title.Monospace">
-        <item name="android:fontFamily">monospace</item>
+        <item name="android:fontFamily">@font/roboto_mono</item>
     </style>
     <style name="Text.Metadata">
         <item name="android:textColor">@color/on_background_disabled</item>
