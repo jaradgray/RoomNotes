@@ -23,5 +23,5 @@
     <dimen name="item_note_fav_icon_size">18sp</dimen>
 
     <!-- Line Spacing Multiplier -->
-    <dimen name="line_spacing_multiplier_content">1.1</dimen>
+    <dimen name="line_spacing_multiplier_content">1.2</dimen>
 </resources>
