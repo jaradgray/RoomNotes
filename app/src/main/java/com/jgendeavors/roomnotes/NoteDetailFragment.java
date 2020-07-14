@@ -191,6 +191,23 @@ public class NoteDetailFragment extends Fragment {
             }
         });
 
+        // observe ViewModel's RenderMode
+        mViewModel.getRenderMode().observe(getViewLifecycleOwner(), new Observer<NoteViewModel.RenderMode>() {
+            @Override
+            public void onChanged(NoteViewModel.RenderMode renderMode) {
+                // Show plaintext or markdown, and update actionbar icon
+                switch (renderMode) {
+                    case Plaintext:
+                        showPlaintext();
+                        break;
+                    case Markdown:
+                        showRenderedMarkdown();
+                        break;
+                }
+                requireActivity().invalidateOptionsMenu();
+            }
+        });
+
         // Make the ActionBar display no title when we're viewing this Fragment.
         //  This seems hacky, but I couldn't find a simple solution to hide the title for specific Navigation destinations
         ((AppCompatActivity)requireActivity()).getSupportActionBar().setTitle(R.string.fragment_note_detail_label);
@@ -213,17 +230,21 @@ public class NoteDetailFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        // TODO we could probably save references to these MenuItems as instance variables and set
+        //  their icons elsewhere, instead of having to override this method and call invalidateOptionsMenu()
+        //  every time we want to change an icon
         // Set favorite icon based on Note.isFavorited
         MenuItem favItem = menu.findItem(R.id.menu_item_favorite_note);
         Note note = mViewModel.getNote().getValue();
         if (favItem != null && note != null && note.getIsFavorited()) {
             favItem.setIcon(R.drawable.ic_favorite_filled);
         }
-        // Set "toggle view" icon based on if plaintext or markdown is currently displayed
-        boolean viewingPlaintext = (mEtContent.getVisibility() == View.VISIBLE);
-        int icViewResId = viewingPlaintext ? R.drawable.ic_view_markdown : R.drawable.ic_view_plaintext;
+        // Set "toggle view" icon based on ViewModel's RenderMode
         MenuItem viewItem = menu.findItem(R.id.menu_item_toggle_view);
-        if (favItem != null) {
+        NoteViewModel.RenderMode renderMode = mViewModel.getRenderMode().getValue();
+        if (viewItem != null && renderMode != null) {
+            // get the icon's resId based on renderMode
+            int icViewResId = (renderMode.equals(NoteViewModel.RenderMode.Plaintext)) ? R.drawable.ic_view_markdown : R.drawable.ic_view_plaintext;
             viewItem.setIcon(icViewResId);
         }
     }
@@ -236,12 +257,9 @@ public class NoteDetailFragment extends Fragment {
                 saveNote();
                 return true;
             case R.id.menu_item_toggle_view:
-                // Update View visibilities based on if we're currently viewing plaintext or markdown
-                boolean viewingPlaintext = (mEtContent.getVisibility() == View.VISIBLE);
-                if (viewingPlaintext) showRenderedMarkdown();
-                else showPlaintext();
-                // We update the menu item icon in onPrepareOptionsMenu(), so we need to invalidate the options menu
-                requireActivity().invalidateOptionsMenu();
+                // toggle ViewModel's render mode
+                mViewModel.toggleRenderMode();
+                // note: we don't have to call invalidateOptionsMenu() because it's called by the Observer
                 return true;
             case R.id.menu_item_favorite_note:
                 mViewModel.toggleFavorite();
@@ -332,6 +350,9 @@ public class NoteDetailFragment extends Fragment {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0); // idk why this works in all cases but the commented-out code doesn't...
     }
 
+    /**
+     * Hides rendered markdown TextViews and shows plaintext EditTexts.
+     */
     private void showPlaintext() {
         mTvRenderedTitle.setVisibility(View.GONE);
         mTvRenderedContent.setVisibility(View.GONE);
@@ -339,6 +360,9 @@ public class NoteDetailFragment extends Fragment {
         mEtContent.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Hides plaintext EditTexts and shows rendered markdown TextViews.
+     */
     private void showRenderedMarkdown() {
         mEtTitle.setVisibility(View.GONE);
         mEtContent.setVisibility(View.GONE);

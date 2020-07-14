@@ -19,12 +19,21 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class NoteViewModel extends AndroidViewModel {
 
+    /**
+     * Enum for how to render Note data in NoteDetailFragment.
+     */
+    public enum RenderMode {
+        Plaintext,
+        Markdown
+    }
+
     private NoteRepository mRepository;
     private LiveData<List<Note>> mAllNotes; // all Notes in the database
     private MutableLiveData<Boolean> mIsEditing;
     private MutableLiveData<Note> mNote;    // the Note that drives NoteDetailFragment's UI. This ViewModel doesn't manipulate
                                             // database columns directly (if that's even possible). We keep a local Note
                                             // instance and perform database operations using the entire Note instance.
+    private MutableLiveData<RenderMode> mRenderMode;
 
     public NoteViewModel(@NonNull Application application) {
         super(application);
@@ -33,6 +42,8 @@ public class NoteViewModel extends AndroidViewModel {
         mAllNotes = mRepository.getAllNotes();
         mIsEditing = new MutableLiveData<>(false); // TODO initialize this better ???
         mNote = new MutableLiveData<>(null);
+        // TODO initialize mRenderMode from SharedPreferences
+        mRenderMode = new MutableLiveData<>(RenderMode.Plaintext);
     }
 
     // API Methods this ViewModel exposes
@@ -49,6 +60,14 @@ public class NoteViewModel extends AndroidViewModel {
     public void deleteNote() { mRepository.delete(mNote.getValue()); }
     public LiveData<Boolean> getIsEditing() { return mIsEditing; }
     public void setIsEditing(boolean value) { mIsEditing.setValue(value); }
+    public LiveData<RenderMode> getRenderMode() { return mRenderMode; }
+    public void setRenderMode(RenderMode mode) { mRenderMode.postValue(mode); }
+    public void toggleRenderMode() {
+        RenderMode mode = mRenderMode.getValue();
+        if (mode == null) return;
+        if (mode.equals(RenderMode.Plaintext)) setRenderMode(RenderMode.Markdown);
+        else setRenderMode(RenderMode.Plaintext);
+    }
     public void toggleFavorite() {
         Note note = mNote.getValue();
         if (note == null) return;
