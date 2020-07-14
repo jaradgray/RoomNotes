@@ -32,8 +32,7 @@
             android:layout_marginBottom="@dimen/margin_large"
             android:hint="@string/fragment_note_detail_title_hint_normal"
             android:inputType="text"
-            android:fontFamily="monospace"
-            style="@style/Text.Title"
+            style="@style/Text.Title.Monospace"
             android:background="@android:color/transparent" />
 
         <!-- Content :: rendered markdown -->
@@ -56,8 +55,7 @@
             android:layout_marginBottom="@dimen/margin_large"
             android:hint="@string/fragment_note_detail_content_hint"
             android:inputType="textMultiLine"
-            android:fontFamily="monospace"
-            style="@style/Text.Body"
+            style="@style/Text.Body.Monospace"
             android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
             android:background="@android:color/transparent"/>
 
