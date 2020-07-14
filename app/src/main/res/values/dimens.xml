@@ -7,17 +7,17 @@
     <dimen name="scroll_margin">170dp</dimen>
 
     <!-- Text Size -->
-    <dimen name="text_size_normal">14sp</dimen>
-    <dimen name="text_size_small">12sp</dimen>
-    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
 
-    <dimen name="text_size_normal_monospace">16sp</dimen>
-    <dimen name="text_size_small_monospace">14sp</dimen>
-    <dimen name="text_size_large_monospace">20sp</dimen>
+    <dimen name="text_size_normal_markdown">16sp</dimen>
+    <dimen name="text_size_small_markdown">14sp</dimen>
+    <dimen name="text_size_large_markdown">20sp</dimen>
 
-    <dimen name="text_size_normal_cardview">14sp</dimen>
-    <dimen name="text_size_small_cardview">12sp</dimen>
-    <dimen name="text_size_large_cardview">16sp</dimen>
+    <dimen name="text_size_normal_cardview">13sp</dimen>
+    <dimen name="text_size_small_cardview">11sp</dimen>
+    <dimen name="text_size_large_cardview">17sp</dimen>
 
     <!-- size of the favorite iton on note items in the RecyclerView -->
     <dimen name="item_note_fav_icon_size">18sp</dimen>
