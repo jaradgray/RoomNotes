@@ -31,7 +31,7 @@
     <!-- Text -->
     <!-- The base style all other text styles will extend. Don't use this style directly. -->
     <style name="Text" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/on_background_medium_emphasis</item>
+        <item name="android:textColor">@color/on_background_high_emphasis</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:fontFamily">sans-serif</item>
 
@@ -40,10 +40,18 @@
 
     <!-- Text styles for general content -->
     <style name="Text.Body" />
+    <style name="Text.Body.Monospace">
+        <item name="android:fontFamily">@font/roboto_mono</item>
+        <item name="android:textSize">@dimen/text_size_normal_monospace</item>
+    </style>
     <style name="Text.Title">
         <item name="android:textColor">@color/on_background_high_emphasis</item>
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="Text.Title.Monospace">
+        <item name="android:fontFamily">@font/roboto_mono</item>
+        <item name="android:textSize">@dimen/text_size_large_monospace</item>
     </style>
     <style name="Text.Metadata">
         <item name="android:textColor">@color/on_background_disabled</item>
@@ -53,9 +61,11 @@
     <!-- Text styles for CardViews -->
     <style name="Text.Body.Cardview">
         <item name="android:textSize">@dimen/text_size_normal_cardview</item>
+<!--        <item name="android:fontFamily">monospace</item>-->
     </style>
     <style name="Text.Title.Cardview">
         <item name="android:textSize">@dimen/text_size_large_cardview</item>
+<!--        <item name="android:fontFamily">monospace</item>-->
     </style>
     <style name="Text.Metadata.Cardview">
         <item name="android:textSize">@dimen/text_size_small_cardview</item>

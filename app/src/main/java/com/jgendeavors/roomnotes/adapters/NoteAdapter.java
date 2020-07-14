@@ -104,10 +104,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         String title = note.getTitle();
         if (title.isEmpty()) {
             holder.tvTitle.setVisibility(View.GONE);
-            holder.tvContent.setLines(4);
         } else {
             holder.tvTitle.setVisibility(View.VISIBLE);
-            holder.tvContent.setLines(3);
             holder.tvTitle.setText(title);
         }
         holder.tvContent.setText(note.getContent());
