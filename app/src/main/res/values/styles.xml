@@ -42,6 +42,7 @@
     <style name="Text.Body" />
     <style name="Text.Body.Monospace">
         <item name="android:fontFamily">@font/roboto_mono</item>
+        <item name="android:textSize">@dimen/text_size_normal_monospace</item>
     </style>
     <style name="Text.Title">
         <item name="android:textColor">@color/on_background_high_emphasis</item>
@@ -50,6 +51,7 @@
     </style>
     <style name="Text.Title.Monospace">
         <item name="android:fontFamily">@font/roboto_mono</item>
+        <item name="android:textSize">@dimen/text_size_large_monospace</item>
     </style>
     <style name="Text.Metadata">
         <item name="android:textColor">@color/on_background_disabled</item>
