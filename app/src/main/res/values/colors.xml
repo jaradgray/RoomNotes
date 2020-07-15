@@ -6,7 +6,7 @@
 
     <color name="colorPrimary">@color/background</color>
     <color name="colorPrimaryDark">@color/background</color>
-    <color name="colorAccent">#8e60dd</color>
+    <color name="colorAccent">#bb86fc</color>
 
     <color name="background">#121212</color>
     <color name="surface_1dp">#1e1e1e</color>
@@ -14,8 +14,14 @@
 <!--    <color name="primary">#8e60dd</color>-->
 <!--    <color name="secondary">#deffffff</color>-->
 
+    <!--    Google's recommended colors
     <color name="on_background_high_emphasis">#deffffff</color>
     <color name="on_background_medium_emphasis">#99ffffff</color>
+    <color name="on_background_disabled">#61ffffff</color>
+    -->
+
+    <color name="on_background_high_emphasis">#E6FFFFFF</color>
+    <color name="on_background_medium_emphasis">#B3FFFFFF</color>
     <color name="on_background_disabled">#61ffffff</color>
 
     <color name="on_surface_high_emphasis">#deffffff</color>
@@ -27,5 +33,6 @@
 
 
     <!-- Colors referenced by styles -->
-    <color name="cardview_background">@color/surface_1dp</color>
+    <color name="cardview_background">@color/background</color>
+    <color name="cardview_stroke">#26FFFFFF</color>
 </resources>

@@ -1,14 +1,23 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
-    android:viewportWidth="78.26087"
-    android:viewportHeight="78.26087"
-    android:tint="#ffffff">
-  <group android:translateX="21.130434"
-      android:translateY="21.130434">
-      <path
-          android:fillColor="#FF000000"
-          android:pathData="M12,14v-2h12v2H12z M24,20v-2H12v2H24z M18,26v-2h-6v2H18z M12,6V4h-2v2v2h2h3V6H12z M19,6V4h-2v2v2h2h3V6H19z M28,6h-2V4
-  	            h-2v2v2h2h2v22H8V6H6v24v2h2h20h2v-2V8V6H28z" />
+    android:viewportWidth="79.59407"
+    android:viewportHeight="79.59407"
+    android:tint="#000000">
+  <group android:translateX="-49.746292"
+      android:translateY="-49.746292">
+    <group android:translateX="4.477166"
+        android:translateY="4.477166">
+      <group android:translateX="45.935726"
+          android:translateY="45.935726">
+        <group android:translateX="21.130434"
+            android:translateY="21.130434">
+            <path
+                android:fillColor="#FF000000"
+                android:pathData="M12,14v-2h12v2H12z M24,20v-2H12v2H24z M18,26v-2h-6v2H18z M12,6V4h-2v2v2h2h3V6H12z M19,6V4h-2v2v2h2h3V6H19z M28,6h-2V4
+        	            h-2v2v2h2h2v22H8V6H6v24v2h2h20h2v-2V8V6H28z" />
+        </group>
+      </group>
+    </group>
   </group>
 </vector>
