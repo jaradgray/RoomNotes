@@ -31,7 +31,7 @@
     <!-- Text -->
     <!-- The base style all other text styles will extend. Don't use this style directly. -->
     <style name="Text" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/on_background_high_emphasis</item>
+        <item name="android:textColor">@color/on_background_medium_emphasis</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:fontFamily">@font/roboto_mono</item>
 
@@ -45,6 +45,7 @@
     <style name="Text.Markdown.Title">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/text_size_large_markdown</item>
+        <item name="android:textColor">@color/on_background_high_emphasis</item>
     </style>
     <style name="Text.Markdown.Body">
         <item name="android:textSize">@dimen/text_size_normal_markdown</item>
@@ -58,6 +59,7 @@
     <style name="Text.Title">
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:fontFamily">@font/roboto_mono_bold</item>
+        <item name="android:textColor">@color/on_background_high_emphasis</item>
     </style>
     <style name="Text.Metadata">
         <item name="android:textColor">@color/on_background_disabled</item>

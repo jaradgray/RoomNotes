@@ -14,8 +14,14 @@
 <!--    <color name="primary">#8e60dd</color>-->
 <!--    <color name="secondary">#deffffff</color>-->
 
+    <!--    Google's recommended colors
     <color name="on_background_high_emphasis">#deffffff</color>
     <color name="on_background_medium_emphasis">#99ffffff</color>
+    <color name="on_background_disabled">#61ffffff</color>
+    -->
+
+    <color name="on_background_high_emphasis">#E6FFFFFF</color>
+    <color name="on_background_medium_emphasis">#B3FFFFFF</color>
     <color name="on_background_disabled">#61ffffff</color>
 
     <color name="on_surface_high_emphasis">#deffffff</color>
