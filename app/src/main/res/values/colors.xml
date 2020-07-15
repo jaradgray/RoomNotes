@@ -27,5 +27,6 @@
 
 
     <!-- Colors referenced by styles -->
-    <color name="cardview_background">@color/surface_1dp</color>
+    <color name="cardview_background">@color/background</color>
+    <color name="cardview_stroke">#26FFFFFF</color>
 </resources>
