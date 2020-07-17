@@ -20,7 +20,7 @@
     <color name="on_background_disabled">#61ffffff</color>
     -->
 
-    <color name="on_background_high_emphasis">#DBffffff</color>
+    <color name="on_background_high_emphasis">#DBf9929b</color>
     <color name="on_background_medium_emphasis">#BFFFFFFF</color>
     <color name="on_background_disabled">#61ffffff</color>
 
