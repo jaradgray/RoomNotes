@@ -21,6 +21,7 @@ to separate UI from business logic
 persistence library for on-device database storage
 - [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview#structure)
 to present database data to the user
+- [SearchView](https://developer.android.com/reference/androidx/appcompat/widget/SearchView) to filter the RecyclerView's data
 
 ## What I Learned
 
@@ -29,3 +30,4 @@ to present database data to the user
 - How to customize app-wide theme and view-specific styles
 - Best practices regarding Android's recommended app architecture
 - Familiarity with presenting data with RecyclerView
+- How to filter a RecyclerView's data with SearchView
