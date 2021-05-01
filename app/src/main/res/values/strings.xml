@@ -26,6 +26,8 @@
     <string name="fragment_note_detail_content_hint">Note</string>
 
     <!-- Menus -->
+    <!-- NotesListFragment -->
+    <string name="menu_item_search_notes_title">Search</string>
     <!-- NoteDetailFragment - Normal -->
     <string name="menu_item_toggle_view_title">Toggle View</string>
     <string name="menu_item_favorite_note_title">Favorite</string>
