@@ -2,8 +2,12 @@ package com.jgendeavors.roomnotes;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jgendeavors.roomnotes.adapters.NoteAdapter;
@@ -14,6 +18,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,6 +28,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NotesListFragment extends Fragment {
+    // Instance variables
+    NoteAdapter mAdapter;
+
+    // Lifecycle method overrides
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +44,9 @@ public class NotesListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Indicate we have an options menu
+        setHasOptionsMenu(true);
+
         // put any usages of findViewById() here
 
         // Initialize RecyclerView
@@ -43,14 +56,14 @@ public class NotesListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         recyclerView.setHasFixedSize(true); // improves performance when we know the size of our RecyclerView in the layout won't change
         // Every RecyclerView needs a RecyclerView.Adapter. We'll need a reference to it, too.
-        final NoteAdapter adapter = new NoteAdapter();
-        recyclerView.setAdapter(adapter);
+        mAdapter = new NoteAdapter();
+        recyclerView.setAdapter(mAdapter);
 
         // Get the Activity's NavController
         final NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
 
         // Handle clicks on RecyclerView items by implementing NoteAdapter.OnItemClickListener interface
-        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(Note note) {
                 // Navigate to NoteDetailFragment
@@ -88,7 +101,30 @@ public class NotesListFragment extends Fragment {
             @Override
             public void onChanged(List<Note> notes) {
                 // update RecyclerView UI
-                adapter.setNotes(notes);
+                mAdapter.setNotes(notes);
+            }
+        });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // Inflate our options menu
+        inflater.inflate(R.menu.fragment_notes_list_options_menu, menu);
+        // Get a reference to our menu's SearchView, so we can add a listener to filter the Notes list
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search_notes);
+        SearchView searchView = (SearchView)searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE); // change to more appropriate keyboard action button
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false; // we'll filter on text changed, so nothing to do here
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText); // filter RecyclerView based on newText
+                return false;
             }
         });
     }
