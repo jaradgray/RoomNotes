@@ -28,6 +28,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import io.noties.markwon.Markwon;
+import io.noties.markwon.editor.MarkwonEditor;
+import io.noties.markwon.editor.MarkwonEditorTextWatcher;
 
 public class NoteDetailFragment extends Fragment {
     // Navigation args
@@ -35,7 +38,9 @@ public class NoteDetailFragment extends Fragment {
     public static final int ARG_VALUE_NO_ID = -1;
 
     // Instance variables
+    private TextView mTvRenderedTitle;
     private EditText mEtTitle;
+    private TextView mTvRenderedContent;
     private EditText mEtContent;
     private TextView mTvCharacterCount;
     private TextView mTvDate;
@@ -63,10 +68,18 @@ public class NoteDetailFragment extends Fragment {
         // put any usages of findViewById() here
 
         // Get references to widgets
+        mTvRenderedTitle = view.findViewById(R.id.fragment_note_detail_tv_rendered_title);
         mEtTitle = view.findViewById(R.id.fragment_note_detail_et_title);
+        mTvRenderedContent = view.findViewById(R.id.fragment_note_detail_tv_rendered_content);
         mEtContent = view.findViewById(R.id.fragment_note_detail_et_content);
         mTvCharacterCount = view.findViewById(R.id.fragment_note_detail_tv_charactercount);
         mTvDate = view.findViewById(R.id.fragment_note_detail_tv_date);
+
+        // Make EditTexts be MarkwonEditors
+        final Markwon markwon = Markwon.create(requireActivity());
+        final MarkwonEditor editor = MarkwonEditor.create(markwon);
+        mEtTitle.addTextChangedListener(MarkwonEditorTextWatcher.withProcess(editor));
+        mEtContent.addTextChangedListener(MarkwonEditorTextWatcher.withProcess(editor));
 
         // update mTvCharacterCount's text when mEtContent's text changes
         mEtContent.addTextChangedListener(new TextWatcher() {
@@ -158,18 +171,42 @@ public class NoteDetailFragment extends Fragment {
             @Override
             public void onChanged(Note note) {
                 if (note == null) {
+                    // set ViewModel's RenderMode to Plaintext
+                    mViewModel.setRenderMode(NoteViewModel.RenderMode.Plaintext);
                     // set View data to indicate no Note
                     mTvCharacterCount.setText(getString(R.string.fragment_note_detail_character_count_format, 0));
                     mTvDate.setVisibility(View.GONE);
                 } else {
-                    // set View data to match Note data
+                    // Set View data to match Note data
+                    // EditTexts get plaintext
                     mEtTitle.setText(note.getTitle());
                     mEtContent.setText(note.getContent());
+                    // TextViews get rendered markdown
+                    markwon.setMarkdown(mTvRenderedTitle, note.getTitle());
+                    markwon.setMarkdown(mTvRenderedContent, note.getContent());
+                    // date
                     String dateLastModifiedText = getString(R.string.fragment_note_detail_date_modified_format,
                             Util.getTimeAsString(requireActivity(), note.getDateModified(), Calendar.LONG));
                     mTvDate.setVisibility(View.VISIBLE);
                     mTvDate.setText(dateLastModifiedText);
                 }
+            }
+        });
+
+        // observe ViewModel's RenderMode
+        mViewModel.getRenderMode().observe(getViewLifecycleOwner(), new Observer<NoteViewModel.RenderMode>() {
+            @Override
+            public void onChanged(NoteViewModel.RenderMode renderMode) {
+                // Show plaintext or markdown, and update actionbar icon
+                switch (renderMode) {
+                    case Plaintext:
+                        showPlaintext();
+                        break;
+                    case Markdown:
+                        showRenderedMarkdown();
+                        break;
+                }
+                requireActivity().invalidateOptionsMenu();
             }
         });
 
@@ -195,11 +232,22 @@ public class NoteDetailFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        // TODO we could probably save references to these MenuItems as instance variables and set
+        //  their icons elsewhere, instead of having to override this method and call invalidateOptionsMenu()
+        //  every time we want to change an icon
         // Set favorite icon based on Note.isFavorited
         MenuItem favItem = menu.findItem(R.id.menu_item_favorite_note);
         Note note = mViewModel.getNote().getValue();
         if (favItem != null && note != null && note.getIsFavorited()) {
             favItem.setIcon(R.drawable.ic_favorite_filled);
+        }
+        // Set "toggle view" icon based on ViewModel's RenderMode
+        MenuItem viewItem = menu.findItem(R.id.menu_item_toggle_view);
+        NoteViewModel.RenderMode renderMode = mViewModel.getRenderMode().getValue();
+        if (viewItem != null && renderMode != null) {
+            // get the icon's resId based on renderMode
+            int icViewResId = (renderMode.equals(NoteViewModel.RenderMode.Plaintext)) ? R.drawable.ic_view_markdown : R.drawable.ic_view_plaintext;
+            viewItem.setIcon(icViewResId);
         }
     }
 
@@ -210,8 +258,10 @@ public class NoteDetailFragment extends Fragment {
             case R.id.menu_item_save_note:
                 saveNote();
                 return true;
-            case R.id.menu_item_edit_note:
-                mViewModel.setIsEditing(true);
+            case R.id.menu_item_toggle_view:
+                // toggle ViewModel's render mode
+                mViewModel.toggleRenderMode();
+                // note: we don't have to call invalidateOptionsMenu() because it's called by the Observer
                 return true;
             case R.id.menu_item_favorite_note:
                 mViewModel.toggleFavorite();
@@ -300,5 +350,25 @@ public class NoteDetailFragment extends Fragment {
         InputMethodManager imm = (InputMethodManager)requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 //        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0); // idk why this works in all cases but the commented-out code doesn't...
+    }
+
+    /**
+     * Hides rendered markdown TextViews and shows plaintext EditTexts.
+     */
+    private void showPlaintext() {
+        mTvRenderedTitle.setVisibility(View.GONE);
+        mTvRenderedContent.setVisibility(View.GONE);
+        mEtTitle.setVisibility(View.VISIBLE);
+        mEtContent.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Hides plaintext EditTexts and shows rendered markdown TextViews.
+     */
+    private void showRenderedMarkdown() {
+        mEtTitle.setVisibility(View.GONE);
+        mEtContent.setVisibility(View.GONE);
+        mTvRenderedTitle.setVisibility(View.VISIBLE);
+        mTvRenderedContent.setVisibility(View.VISIBLE);
     }
 }

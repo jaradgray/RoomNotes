@@ -33,17 +33,33 @@
     <style name="Text" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/on_background_medium_emphasis</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">@font/roboto_mono</item>
 
         <item name="android:textColorHint">@color/on_background_disabled</item>
+    </style>
+
+    <!-- Text styles for rendered markdown -->
+    <style name="Text.Markdown">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <style name="Text.Markdown.Title">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/text_size_large_markdown</item>
+        <item name="android:textColor">@color/on_background_high_emphasis</item>
+    </style>
+    <style name="Text.Markdown.Body">
+        <item name="android:textSize">@dimen/text_size_normal_markdown</item>
+    </style>
+    <style name="Text.Markdown.Metadata">
+        <item name="android:textSize">@dimen/text_size_small_markdown</item>
     </style>
 
     <!-- Text styles for general content -->
     <style name="Text.Body" />
     <style name="Text.Title">
-        <item name="android:textColor">@color/on_background_high_emphasis</item>
         <item name="android:textSize">@dimen/text_size_large</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/roboto_mono_bold</item>
+        <item name="android:textColor">@color/on_background_high_emphasis</item>
     </style>
     <style name="Text.Metadata">
         <item name="android:textColor">@color/on_background_disabled</item>

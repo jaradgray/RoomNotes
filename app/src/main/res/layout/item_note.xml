@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    style="@style/AppTheme.CardView">
+    style="@style/AppTheme.CardView"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/cardview_stroke"
+    app:cardCornerRadius="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/item_note_tv_title"
@@ -31,7 +36,7 @@
             android:layout_marginBottom="@dimen/margin_large"
             android:text="tv_content"
             style="@style/Text.Body.Cardview"
-            android:lines="4"
+            android:maxLines="10"
             android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_content"
             android:ellipsize="end"
             android:layout_below="@id/item_note_tv_title"/>
@@ -58,4 +63,4 @@
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

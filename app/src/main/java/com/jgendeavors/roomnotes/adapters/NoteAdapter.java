@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +20,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> implements Filterable {
 
     /**
      * The ViewHolder class is the View that our RecyclerView will display as its list item,
@@ -65,7 +67,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
 
     // Instance Variables
-    private List<Note> mNotes = new ArrayList<Note>();
+    private List<Note> mNotes = new ArrayList<Note>(); // the List that will be displayed in the RecyclerView
+    private List<Note> mAllNotes = new ArrayList<>(); // holds all Notes, so we can add previously removed Notes during filtering
 
 
     // Setter
@@ -77,6 +80,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
      */
     public void setNotes(List<Note> notes) {
         mNotes = notes;
+        mAllNotes = new ArrayList<>(notes);
         notifyDataSetChanged();
     }
 
@@ -104,10 +108,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         String title = note.getTitle();
         if (title.isEmpty()) {
             holder.tvTitle.setVisibility(View.GONE);
-            holder.tvContent.setLines(4);
         } else {
             holder.tvTitle.setVisibility(View.VISIBLE);
-            holder.tvContent.setLines(3);
             holder.tvTitle.setText(title);
         }
         holder.tvContent.setText(note.getContent());
@@ -129,4 +131,45 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public int getItemCount() {
         return mNotes.size();
     }
+
+
+    // Filterable implementation
+
+    @Override
+    public Filter getFilter() {
+        return noteFilter;
+    }
+
+    private Filter noteFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            // Build a list of Notes who satisfy the given constraint (search text)
+            List<Note> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0){
+                filteredList.addAll(mAllNotes);
+            } else {
+                // Populate filteredList with Notes that contain the given constraint in their Title or Content
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Note note : mAllNotes) {
+                    if (note.getTitle().toLowerCase().contains(filterPattern) ||
+                            note.getContent().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(note);
+                    }
+                }
+            }
+
+            // Return filteredList via FilterResults object
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            // Make mNotes contain only the filtered Notes
+            mNotes.clear();
+            mNotes.addAll((List)filterResults.values);
+            notifyDataSetChanged(); // refresh RecyclerView
+        }
+    };
 }
